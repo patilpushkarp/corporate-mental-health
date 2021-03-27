@@ -1,0 +1,727 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Preprocessing - 1 &#8212; Corporate Mental Health</title>
+    
+  <link rel="stylesheet" href="../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../index.html">
+  
+  <img src="../../_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Corporate Mental Health</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../intro.html">
+   Welcome to your Jupyter Book
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Data Preparation
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="data_cleaning.html">
+   Data Preparation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="select_n_combine_columns.html">
+   Data Selection and Segregation
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/docs/data_preparation/data_preprocessing_1.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fdocs/data_preparation/data_preprocessing_1.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/mh_book/docs/data_preparation/data_preprocessing_1.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i>
+            Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#columns-with-true-or-false-values">
+   Columns with true or false values
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#are-you-self-employed">
+   are you self-employed?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#how-many-employees-does-your-company-or-organization-have">
+   how many employees does your company or organization have?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-your-gender">
+   what is your gender?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#segregation-of-based-on-employment-type">
+   Segregation of based on employment type
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="data-preprocessing-1">
+<h1>Data Preprocessing - 1<a class="headerlink" href="#data-preprocessing-1" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Data will be preprocessed column by column.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load combined data</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./../../../datasets/data.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>After manually cheking the data, a some inconsistencies are found in the data which needs to be addressed before exploring the data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Some utility functions</span>
+
+<span class="k">def</span> <span class="nf">get_value_counts</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
+    <span class="n">temp_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">series</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="n">temp_df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Values&#39;</span><span class="p">,</span> <span class="s1">&#39;Counts&#39;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">temp_df</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="columns-with-true-or-false-values">
+<h2>Columns with true or false values<a class="headerlink" href="#columns-with-true-or-false-values" title="Permalink to this headline">¶</a></h2>
+<p>Some columns contains 1.0 and 0.0 as well as true and false as values. It is better to convert to them into numerical values itself.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="s1">&#39;True&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;False&#39;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">})</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="s1">&#39;1.0&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;0.0&#39;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="are-you-self-employed">
+<h2>are you self-employed?<a class="headerlink" href="#are-you-self-employed" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">get_value_counts</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;are you self-employed?&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Values</th>
+      <th>Counts</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>1308</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>217</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>There is no discrepency in this column.</p>
+</div>
+<div class="section" id="how-many-employees-does-your-company-or-organization-have">
+<h2>how many employees does your company or organization have?<a class="headerlink" href="#how-many-employees-does-your-company-or-organization-have" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">get_value_counts</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;how many employees does your company or organization have?&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Values</th>
+      <th>Counts</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>More than 1000</td>
+      <td>374</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>100-500</td>
+      <td>364</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>26-100</td>
+      <td>243</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Jun-25</td>
+      <td>155</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>500-1000</td>
+      <td>106</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6-25</td>
+      <td>34</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>01-May</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>1-5</td>
+      <td>7</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Following are the issues:</p>
+<ol class="simple">
+<li><p>‘6-25’ is also represented by ‘Jun-25’</p></li>
+<li><p>‘1-5’ is also represented by ‘01-May’</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;how many employees does your company or organization have?&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;how many employees does your company or organization have?&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;Jun-25&quot;</span><span class="p">,</span> <span class="s2">&quot;6-25&quot;</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;how many employees does your company or organization have?&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;how many employees does your company or organization have?&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;01-May&quot;</span><span class="p">,</span> <span class="s2">&quot;1-5&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="what-is-your-gender">
+<h2>what is your gender?<a class="headerlink" href="#what-is-your-gender" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;what is your gender?&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;what is your gender?&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;what is your gender?&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;what is your gender?&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">get_value_counts</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;what is your gender?&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Values</th>
+      <th>Counts</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>male</td>
+      <td>859</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>female</td>
+      <td>350</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>m</td>
+      <td>102</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>f</td>
+      <td>55</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>woman</td>
+      <td>16</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>76</th>
+      <td>cisgender male</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>77</th>
+      <td>male (or female, or both)</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>78</th>
+      <td>contextual</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>79</th>
+      <td>genderqueer demigirl</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>80</th>
+      <td>masculine</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+<p>81 rows × 2 columns</p>
+</div></div></div>
+</div>
+<p>There is lot of noise in this column.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;what is your gender?&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;female&#39;, &#39;male&#39;, &#39;f&#39;, &#39;m&#39;, &#39;man&#39;, nan, &#39;genderfluid&#39;, &#39;nonbinary&#39;,
+       &#39;cis-male&#39;, &#39;mail&#39;, &#39;woman&#39;, &#39;male/androgynous&#39;, &#39;cis hetero male&#39;,
+       &#39;femalw&#39;, &#39;femail&#39;, &#39;male (cis)&#39;, &#39;uhhhhhhhhh fem genderqueer?&#39;,
+       &quot;male (hey this is the tech industry you&#39;re talking about)&quot;,
+       &#39;female (cis)&#39;, &#39;god king of the valajar&#39;, &#39;cis male&#39;,
+       &#39;my sex is female.&#39;, &#39;non-binary&#39;, &#39;male, cis&#39;,
+       &#39;agender/genderfluid&#39;, &#39;male-ish&#39;, &#39;sometimes&#39;,
+       &#39;female (cisgender)&#39;, &#39;woman-identified&#39;, &#39;contextual&#39;,
+       &#39;non binary&#39;, &#39;genderqueer demigirl&#39;, &#39;genderqueer/non-binary&#39;,
+       &#39;cis-female&#39;, &#39;cis female&#39;, &#39;f, cisgender&#39;, &#39;female-ish&#39;, &#39;\\-&#39;,
+       &#39;trans woman&#39;, &#39;transfeminine&#39;, &#39;none&#39;, &#39;dude&#39;, &#39;ostensibly male&#39;,
+       &#39;agender&#39;, &#39;male, born with xy chromosoms&#39;, &#39;malel&#39;,
+       &#39;i identify as female&#39;, &#39;*shrug emoji* (f)&#39;,
+       &#39;male (or female, or both)&#39;, &#39;trans man&#39;, &#39;transgender&#39;,
+       &#39;female/gender non-binary.&#39;, &#39;cis woman&#39;, &#39;cisgendered woman&#39;,
+       &#39;genderqueer&#39;, &#39;demiguy&#39;, &#39;trans female&#39;, &#39;cisgender male&#39;,
+       &#39;she/her/they/them&#39;, &#39;other&#39;, &#39;swm&#39;, &#39;cisgender female&#39;, &#39;nb&#39;,
+       &#39;nonbinary/femme&#39;, &#39;gender non-conforming woman&#39;,
+       &#39;let\&#39;s keep it simple and say &quot;male&quot;&#39;, &#39;identify as male&#39;,
+       &#39;masculine&#39;, &#39;cishet male&#39;, &#39;female-identified&#39;, &#39;questioning&#39;,
+       &#39;i have a penis&#39;, &#39;rr&#39;, &#39;agender trans woman&#39;, &#39;femmina&#39;, &#39;43&#39;,
+       &#39;masculino&#39;, &#39;i am a wookie&#39;, &#39;make&#39;,
+       &#39;trans non-binary/genderfluid&#39;, &#39;non-binary and gender fluid&#39;,
+       &#39;femile&#39;], dtype=object)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">male_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;male&#39;</span><span class="p">,</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="s1">&#39;man&#39;</span><span class="p">,</span> <span class="s1">&#39;mail&#39;</span><span class="p">,</span> <span class="s1">&#39;male/androgynous&#39;</span><span class="p">,</span> <span class="s1">&#39;cis-male&#39;</span><span class="p">,</span> <span class="s1">&#39;male (cis)&#39;</span><span class="p">,</span> 
+             <span class="s1">&#39;male (hey this is the tech industry you</span><span class="se">\&#39;</span><span class="s1">re talking about)&#39;</span><span class="p">,</span> <span class="s1">&#39;god king of the valajar&#39;</span><span class="p">,</span> <span class="s1">&#39;cis male&#39;</span><span class="p">,</span> 
+             <span class="s1">&#39;male, cis&#39;</span><span class="p">,</span> <span class="s1">&#39;male-ish&#39;</span><span class="p">,</span> <span class="s1">&#39;dude&#39;</span><span class="p">,</span> <span class="s1">&#39;male, born with xy chromosoms&#39;</span><span class="p">,</span> <span class="s1">&#39;malel&#39;</span><span class="p">,</span> <span class="s1">&#39;demiguy&#39;</span><span class="p">,</span> <span class="s1">&#39;cisgender male&#39;</span><span class="p">,</span> 
+             <span class="s1">&#39;let</span><span class="se">\&#39;</span><span class="s1">s keep it simple and say &quot;male&quot;&#39;</span><span class="p">,</span> <span class="s1">&#39;identify as male&#39;</span><span class="p">,</span> <span class="s1">&#39;masculine&#39;</span><span class="p">,</span> <span class="s1">&#39;make&#39;</span><span class="p">,</span> <span class="s1">&#39;cishet male&#39;</span><span class="p">,</span> 
+             <span class="s1">&#39;i have a penis&#39;</span><span class="p">,</span> <span class="s1">&#39;masculino&#39;</span><span class="p">]</span>
+<span class="n">female_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;female&#39;</span><span class="p">,</span> <span class="s1">&#39;f&#39;</span><span class="p">,</span> <span class="s1">&#39;woman&#39;</span><span class="p">,</span> <span class="s1">&#39;femalw&#39;</span><span class="p">,</span> <span class="s1">&#39;femail&#39;</span><span class="p">,</span> <span class="s1">&#39;female (cis)&#39;</span><span class="p">,</span> <span class="s1">&#39;my sex is female.&#39;</span><span class="p">,</span> 
+               <span class="s1">&#39;female (cisgender)&#39;</span><span class="p">,</span> <span class="s1">&#39;woman-identified&#39;</span><span class="p">,</span> <span class="s1">&#39;cis-female&#39;</span><span class="p">,</span> <span class="s1">&#39;cis female&#39;</span><span class="p">,</span> <span class="s1">&#39;f, cisgender&#39;</span><span class="p">,</span> <span class="s1">&#39;female-ish&#39;</span><span class="p">,</span> 
+               <span class="s1">&#39;i identify as female&#39;</span><span class="p">,</span> <span class="s1">&#39;*shrug emoji* (f)&#39;</span><span class="p">,</span> <span class="s1">&#39;cis woman&#39;</span><span class="p">,</span> <span class="s1">&#39;cisgendered woman&#39;</span><span class="p">,</span> <span class="s1">&#39;she/her/they/them&#39;</span><span class="p">,</span> 
+               <span class="s1">&#39;cisgender female&#39;</span><span class="p">,</span> <span class="s1">&#39;female-identified&#39;</span><span class="p">,</span> <span class="s1">&#39;femmina&#39;</span><span class="p">,</span> <span class="s1">&#39;femile&#39;</span><span class="p">]</span>
+<span class="n">other_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;genderfluid&#39;</span><span class="p">,</span> <span class="s1">&#39;nonbinary&#39;</span><span class="p">,</span> <span class="s1">&#39;cis hetero male&#39;</span><span class="p">,</span> <span class="s1">&#39;uhhhhhhhhh fem genderqueer?&#39;</span><span class="p">,</span> <span class="s1">&#39;non-binary&#39;</span><span class="p">,</span> 
+              <span class="s1">&#39;agender/genderfluid&#39;</span><span class="p">,</span> <span class="s1">&#39;sometimes&#39;</span><span class="p">,</span> <span class="s1">&#39;contextual&#39;</span><span class="p">,</span> <span class="s1">&#39;non binary&#39;</span><span class="p">,</span> <span class="s1">&#39;genderqueer demigirl&#39;</span><span class="p">,</span> 
+              <span class="s1">&#39;genderqueer/non-binary&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">-&#39;</span><span class="p">,</span> <span class="s1">&#39;transwoman&#39;</span><span class="p">,</span> <span class="s1">&#39;transfeminine&#39;</span><span class="p">,</span> <span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="s1">&#39;ostensibly male&#39;</span><span class="p">,</span> <span class="s1">&#39;agender&#39;</span><span class="p">,</span> 
+              <span class="s1">&#39;male (or female, or both)&#39;</span><span class="p">,</span> <span class="s1">&#39;trans man&#39;</span><span class="p">,</span> <span class="s1">&#39;transgender&#39;</span><span class="p">,</span> <span class="s1">&#39;female/gender non-binary.&#39;</span><span class="p">,</span> 
+              <span class="s1">&#39;genderqueer&#39;</span><span class="p">,</span> <span class="s1">&#39;trans female&#39;</span><span class="p">,</span> <span class="s1">&#39;other&#39;</span><span class="p">,</span> <span class="s1">&#39;swm&#39;</span><span class="p">,</span> <span class="s1">&#39;nb&#39;</span><span class="p">,</span> <span class="s1">&#39;nonbinary/femme&#39;</span><span class="p">,</span> <span class="s1">&#39;gender non-conforming woman&#39;</span><span class="p">,</span> 
+              <span class="s1">&#39;i am a wookie&#39;</span><span class="p">,</span> <span class="s1">&#39;questioning&#39;</span><span class="p">,</span> <span class="s1">&#39;rr&#39;</span><span class="p">,</span> <span class="s1">&#39;agender trans woman&#39;</span><span class="p">,</span> <span class="s1">&#39;43&#39;</span><span class="p">,</span> <span class="s1">&#39;trans non-binary/genderfluid&#39;</span><span class="p">,</span> 
+              <span class="s1">&#39;non-binary and gender fluid&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;what is your gender?&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;what is your gender?&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;male&#39;</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">male_list</span> <span class="k">else</span> <span class="p">(</span><span class="s1">&#39;female&#39;</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">female_list</span> <span class="k">else</span> <span class="s1">&#39;other&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">get_value_counts</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;what is your gender?&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Values</th>
+      <th>Counts</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>male</td>
+      <td>1002</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>female</td>
+      <td>446</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>other</td>
+      <td>77</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./../../../datasets/consistent_data.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="segregation-of-based-on-employment-type">
+<h2>Segregation of based on employment type<a class="headerlink" href="#segregation-of-based-on-employment-type" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ce_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;are you self-employed?&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">se_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;are you self-employed?&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ce_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./../../../datasets/consistent_ce_data.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">se_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./../../../datasets/consistent_se_data.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./docs/data_preparation"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Pushkar Patil<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../../_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>

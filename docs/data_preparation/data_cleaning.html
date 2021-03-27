@@ -1,0 +1,1339 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Preparation &#8212; Corporate Mental Health</title>
+    
+  <link rel="stylesheet" href="../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Data Selection and Segregation" href="select_n_combine_columns.html" />
+    <link rel="prev" title="Welcome to your Jupyter Book" href="../../intro.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../index.html">
+  
+  <img src="../../_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Corporate Mental Health</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../intro.html">
+   Welcome to your Jupyter Book
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Data Preparation
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Data Preparation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="select_n_combine_columns.html">
+   Data Selection and Segregation
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/docs/data_preparation/data_cleaning.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fdocs/data_preparation/data_cleaning.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/mh_book/docs/data_preparation/data_cleaning.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i>
+            Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-cleaning-2017">
+   Data cleaning - 2017
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-cleaning-2018">
+   Data cleaning - 2018
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-cleaning-2019">
+   Data cleaning - 2019
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="data-preparation">
+<h1>Data Preparation<a class="headerlink" href="#data-preparation" title="Permalink to this headline">¶</a></h1>
+<p>OSMI has all the links of the data on their <a class="reference external" href="https://osmihelp.org">website</a> under the <a class="reference external" href="https://osmihelp.org/research">research</a> section for all the years starting from year 2014. The organization has hosted their datasets on kaggle. I took the data from the year 2017 onwards because the question asked haven’t changed from 2017 and hence it will be easier to combine the data.</p>
+<p>All the datasets are downloaded in csv format and renamed to with respect to corresponding years in the format “osmi_&lt;year&gt;.csv”. Here &lt;year&gt; is the placeholder for the year. For example, data for year 2017 is present in file named “osmi_2017.csv”</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import necessary packages</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">re</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="data-cleaning-2017">
+<h2>Data cleaning - 2017<a class="headerlink" href="#data-cleaning-2017" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load 2017 data</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;./../../../datasets/osmi_2017.csv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Data Preview</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>#</th>
+      <th>&lt;strong&gt;Are you self-employed?&lt;/strong&gt;</th>
+      <th>How many employees does your company or organization have?</th>
+      <th>Is your employer primarily a tech company/organization?</th>
+      <th>Is your primary role within your company related to tech/IT?</th>
+      <th>Does your employer provide mental health benefits as part of healthcare coverage?</th>
+      <th>Do you know the options for mental health care available under your employer-provided health coverage?</th>
+      <th>Has your employer ever formally discussed mental health (for example, as part of a wellness campaign or other official communication)?</th>
+      <th>Does your employer offer resources to learn more about mental health disorders and options for seeking help?</th>
+      <th>Is your anonymity protected if you choose to take advantage of mental health or substance abuse treatment resources provided by your employer?</th>
+      <th>...</th>
+      <th>What is your gender?</th>
+      <th>What country do you &lt;strong&gt;live&lt;/strong&gt; in?</th>
+      <th>What US state or territory do you &lt;strong&gt;live&lt;/strong&gt; in?</th>
+      <th>What is your race?</th>
+      <th>Other</th>
+      <th>What country do you &lt;strong&gt;work&lt;/strong&gt; in?</th>
+      <th>What US state or territory do you &lt;strong&gt;work&lt;/strong&gt; in?</th>
+      <th>Start Date (UTC)</th>
+      <th>Submit Date (UTC)</th>
+      <th>Network ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>e49fe87572831232dcfa51b376b22039</td>
+      <td>0</td>
+      <td>100-500</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>No</td>
+      <td>Yes</td>
+      <td>No</td>
+      <td>I don't know</td>
+      <td>I don't know</td>
+      <td>...</td>
+      <td>Female</td>
+      <td>United Kingdom</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>United Kingdom</td>
+      <td>NaN</td>
+      <td>16/05/18 12:32</td>
+      <td>16/05/18 12:42</td>
+      <td>464b7a12f1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>a1eede444ac024928d247a8372d54931</td>
+      <td>0</td>
+      <td>100-500</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>No</td>
+      <td>No</td>
+      <td>I don't know</td>
+      <td>...</td>
+      <td>male</td>
+      <td>United Kingdom</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>United Kingdom</td>
+      <td>NaN</td>
+      <td>16/05/18 12:31</td>
+      <td>16/05/18 12:40</td>
+      <td>464b7a12f1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>37d3fd67f62bd1e0a2dea4f9cd440d98</td>
+      <td>0</td>
+      <td>Jun-25</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>I don't know</td>
+      <td>No</td>
+      <td>I don't know</td>
+      <td>No</td>
+      <td>Yes</td>
+      <td>...</td>
+      <td>male</td>
+      <td>United States of America</td>
+      <td>Missouri</td>
+      <td>White</td>
+      <td>NaN</td>
+      <td>United States of America</td>
+      <td>Missouri</td>
+      <td>09/05/18 5:34</td>
+      <td>09/05/18 5:46</td>
+      <td>1eb7e0cb94</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>519b759442c1cab0e9b5a8a1acb1b216</td>
+      <td>0</td>
+      <td>More than 1000</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>I don't know</td>
+      <td>I don't know</td>
+      <td>Yes</td>
+      <td>...</td>
+      <td>Male</td>
+      <td>United States of America</td>
+      <td>Washington</td>
+      <td>White</td>
+      <td>NaN</td>
+      <td>United States of America</td>
+      <td>Washington</td>
+      <td>04/05/18 23:19</td>
+      <td>04/05/18 23:23</td>
+      <td>63852edbc4</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ef0af4927b575b1a3e607c11ca37870e</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>female</td>
+      <td>United States of America</td>
+      <td>Illinois</td>
+      <td>More than one of the above</td>
+      <td>NaN</td>
+      <td>United States of America</td>
+      <td>Illinois</td>
+      <td>03/05/18 0:40</td>
+      <td>03/05/18 0:53</td>
+      <td>43237889f1</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 87 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Data info</span>
+<span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 756 entries, 0 to 755
+Data columns (total 87 columns):
+ #   Column                                                                                                                                                                                                                                   Non-Null Count  Dtype  
+---  ------                                                                                                                                                                                                                                   --------------  -----  
+ 0   #                                                                                                                                                                                                                                        756 non-null    object 
+ 1   &lt;strong&gt;Are you self-employed?&lt;/strong&gt;                                                                                                                                                                                                  756 non-null    int64  
+ 2   How many employees does your company or organization have?                                                                                                                                                                               643 non-null    object 
+ 3   Is your employer primarily a tech company/organization?                                                                                                                                                                                  643 non-null    float64
+ 4   Is your primary role within your company related to tech/IT?                                                                                                                                                                             643 non-null    float64
+ 5   Does your employer provide mental health benefits as part of healthcare coverage?                                                                                                                                                        643 non-null    object 
+ 6   Do you know the options for mental health care available under your employer-provided health coverage?                                                                                                                                   576 non-null    object 
+ 7   Has your employer ever formally discussed mental health (for example, as part of a wellness campaign or other official communication)?                                                                                                   643 non-null    object 
+ 8   Does your employer offer resources to learn more about mental health disorders and options for seeking help?                                                                                                                             643 non-null    object 
+ 9   Is your anonymity protected if you choose to take advantage of mental health or substance abuse treatment resources provided by your employer?                                                                                           643 non-null    object 
+ 10  If a mental health issue prompted you to request a medical leave from work, how easy or difficult would it be to ask for that leave?                                                                                                     643 non-null    object 
+ 11  Would you feel more comfortable talking to your coworkers about your physical health or your mental health?                                                                                                                              643 non-null    object 
+ 12  Would you feel comfortable discussing a mental health issue with your direct supervisor(s)?                                                                                                                                              643 non-null    object 
+ 13  Have you ever discussed your mental health with your employer?                                                                                                                                                                           643 non-null    float64
+ 14  Describe the conversation you had with your employer about your mental health, including their reactions and what actions were taken to address your mental health issue/questions.                                                      172 non-null    object 
+ 15  Would you feel comfortable discussing a mental health issue with your coworkers?                                                                                                                                                         643 non-null    object 
+ 16  Have you ever discussed your mental health with coworkers?                                                                                                                                                                               643 non-null    float64
+ 17  Describe the conversation with coworkers you had about your mental health including their reactions.                                                                                                                                     226 non-null    object 
+ 18  Have you ever had a coworker discuss their or another coworker&#39;s mental health with you?                                                                                                                                                 638 non-null    float64
+ 19  Describe the conversation your coworker had with you about their mental health (please do not use names).                                                                                                                                230 non-null    object 
+ 20  Overall, how much importance does your employer place on physical health?                                                                                                                                                                643 non-null    float64
+ 21  Overall, how much importance does your employer place on mental health?                                                                                                                                                                  643 non-null    float64
+ 22  Do you have medical coverage (private insurance or state-provided) that includes treatment of mental health disorders?                                                                                                                   113 non-null    float64
+ 23  Do you know local or online resources to seek help for a mental health issue?                                                                                                                                                            113 non-null    object 
+ 24  &lt;strong&gt;If you have been diagnosed or treated for a mental health disorder, do you ever reveal this to clients or business contacts?&lt;/strong&gt;                                                                                            113 non-null    object 
+ 25  If you have revealed a mental health disorder to a client or business contact, how has this affected you or the relationship?                                                                                                            51 non-null     object 
+ 26  &lt;strong&gt;If you have been diagnosed or treated for a mental health disorder, do you ever reveal this to coworkers or employees?&lt;/strong&gt;                                                                                                  113 non-null    object 
+ 27  If you have revealed a mental health disorder to a coworker or employee, how has this impacted you or the relationship?                                                                                                                  113 non-null    object 
+ 28  Do you believe your productivity is ever affected by a mental health issue?                                                                                                                                                              113 non-null    object 
+ 29  If yes, what percentage of your work time (time performing primary or secondary job functions) is affected by a mental health issue?                                                                                                     85 non-null     object 
+ 30  &lt;strong&gt;Do you have previous employers?&lt;/strong&gt;                                                                                                                                                                                         756 non-null    int64  
+ 31  Was your employer primarily a tech company/organization?                                                                                                                                                                                 667 non-null    float64
+ 32  &lt;strong&gt;Have your previous employers provided mental health benefits?&lt;/strong&gt;                                                                                                                                                           667 non-null    object 
+ 33  &lt;strong&gt;Were you aware of the options for mental health care provided by your previous employers?&lt;/strong&gt;                                                                                                                               667 non-null    object 
+ 34  Did your previous employers ever formally discuss mental health (as part of a wellness campaign or other official communication)?                                                                                                        667 non-null    object 
+ 35  Did your previous employers provide resources to learn more about mental health disorders and how to seek help?                                                                                                                          667 non-null    object 
+ 36  Was your anonymity protected if you chose to take advantage of mental health or substance abuse treatment resources with previous employers?                                                                                             667 non-null    object 
+ 37  Would you have felt more comfortable talking to your previous employer about your physical health or your mental health?                                                                                                                 667 non-null    object 
+ 38  Would you have been willing to discuss your mental health with your direct supervisor(s)?                                                                                                                                                667 non-null    object 
+ 39  Did you ever discuss your mental health with your previous employer?                                                                                                                                                                     667 non-null    float64
+ 40  Describe the conversation you had with your previous employer about your mental health, including their reactions and actions taken to address your mental health issue/questions.                                                       105 non-null    object 
+ 41  &lt;strong&gt;Would you have been willing to discuss your mental health with your coworkers at previous employers?&lt;/strong&gt;                                                                                                                    667 non-null    object 
+ 42  Did you ever discuss your mental health with a previous coworker(s)?                                                                                                                                                                     666 non-null    float64
+ 43  Describe the conversation you had with your previous coworkers about your mental health including their reactions.                                                                                                                       130 non-null    object 
+ 44  Did you ever have a previous coworker discuss their or another coworker&#39;s mental health with you?                                                                                                                                        661 non-null    float64
+ 45  Describe the conversation your coworker had with you about their mental health (please do not use names)..1                                                                                                                              126 non-null    object 
+ 46  Overall, how much importance did your previous employer place on physical health?                                                                                                                                                        667 non-null    float64
+ 47  Overall, how much importance did your previous employer place on mental health?                                                                                                                                                          667 non-null    float64
+ 48  Do you currently have a mental health disorder?                                                                                                                                                                                          756 non-null    object 
+ 49  Have you ever been diagnosed with a mental health disorder?                                                                                                                                                                              324 non-null    object 
+ 50  What disorder(s) have you been diagnosed with?                                                                                                                                                                                           0 non-null      float64
+ 51  If possibly, what disorder(s) do you believe you have?                                                                                                                                                                                   142 non-null    object 
+ 52  If so, what disorder(s) were you diagnosed with?                                                                                                                                                                                         313 non-null    object 
+ 53  Have you had a mental health disorder in the past?                                                                                                                                                                                       746 non-null    object 
+ 54  Have you ever sought treatment for a mental health disorder from a mental health professional?                                                                                                                                           756 non-null    int64  
+ 55  Do you have a family history of mental illness?                                                                                                                                                                                          756 non-null    object 
+ 56  If you have a mental health disorder, how often do you feel that it interferes with your work &lt;strong&gt;when being treated effectively?&lt;/strong&gt;                                                                                           756 non-null    object 
+ 57  If you have a mental health disorder, how often do you feel that it interferes with your work &lt;strong&gt;when &lt;em&gt;NOT&lt;/em&gt; being treated effectively (i.e., when you are experiencing symptoms)?&lt;/strong&gt;                                   756 non-null    object 
+ 58  Have your observations of how another individual who discussed a mental health issue made you less likely to reveal a mental health issue yourself in your current workplace?                                                            596 non-null    object 
+ 59  How willing would you be to share with friends and family that you have a mental illness?                                                                                                                                                756 non-null    int64  
+ 60  Would you be willing to bring up a physical health issue with a potential employer in an interview?                                                                                                                                      756 non-null    object 
+ 61  Why or why not?                                                                                                                                                                                                                          570 non-null    object 
+ 62  Would you bring up your mental health with a potential employer in an interview?                                                                                                                                                         756 non-null    object 
+ 63  Why or why not?.1                                                                                                                                                                                                                        580 non-null    object 
+ 64  Are you openly identified at work as a person with a mental health issue?                                                                                                                                                                754 non-null    float64
+ 65  Has being identified as a person with a mental health issue affected your career?                                                                                                                                                        84 non-null     float64
+ 66  How has it affected your career?                                                                                                                                                                                                         26 non-null     float64
+ 67  If they knew you suffered from a mental health disorder, how do you think that team members/co-workers would react?                                                                                                                      754 non-null    float64
+ 68  &lt;strong&gt;Have you observed or experienced an unsupportive or badly handled response to a mental health issue in your current or previous workplace?&lt;/strong&gt;                                                                              754 non-null    object 
+ 69  Describe the circumstances of the badly handled or unsupportive response.                                                                                                                                                                157 non-null    object 
+ 70  &lt;strong&gt;Have you observed or experienced supportive or well handled response to a mental health issue in your current or previous workplace?&lt;/strong&gt;                                                                                    754 non-null    object 
+ 71  Describe the circumstances of the supportive or well handled response.                                                                                                                                                                   0 non-null      float64
+ 72  Overall, how well do you think the tech industry supports employees with mental health issues?                                                                                                                                           754 non-null    float64
+ 73  Briefly describe what you think the industry as a whole and/or employers could do to improve mental health support for employees.                                                                                                        500 non-null    object 
+ 74  If there is anything else you would like to tell us that has not been covered by the survey questions, please use this space to do so.                                                                                                   183 non-null    object 
+ 75  Would you be willing to talk to one of us more extensively about your experiences with mental health issues in the tech industry? (Note that all interview responses would be used &lt;em&gt;anonymously&lt;/em&gt; and only with your permission.)  754 non-null    float64
+ 76  What is your age?                                                                                                                                                                                                                        754 non-null    float64
+ 77  What is your gender?                                                                                                                                                                                                                     743 non-null    object 
+ 78  What country do you &lt;strong&gt;live&lt;/strong&gt; in?                                                                                                                                                                                            754 non-null    object 
+ 79  What US state or territory do you &lt;strong&gt;live&lt;/strong&gt; in?                                                                                                                                                                              497 non-null    object 
+ 80  What is your race?                                                                                                                                                                                                                       482 non-null    object 
+ 81  Other                                                                                                                                                                                                                                    15 non-null     object 
+ 82  What country do you &lt;strong&gt;work&lt;/strong&gt; in?                                                                                                                                                                                            754 non-null    object 
+ 83  What US state or territory do you &lt;strong&gt;work&lt;/strong&gt; in?                                                                                                                                                                              503 non-null    object 
+ 84  Start Date (UTC)                                                                                                                                                                                                                         756 non-null    object 
+ 85  Submit Date (UTC)                                                                                                                                                                                                                        756 non-null    object 
+ 86  Network ID                                                                                                                                                                                                                               756 non-null    object 
+dtypes: float64(23), int64(4), object(60)
+memory usage: 514.0+ KB
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Lower the column names</span>
+<span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns</span>  <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+<span class="c1"># Remove html tags from the column names</span>
+<span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;&lt;.*?&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">column</span><span class="p">)</span> <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">]</span>
+
+<span class="c1"># Remove special character </span>
+<span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\xa0</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">column</span><span class="p">)</span> <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Reassign the columns to the respective dataframes</span>
+<span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">columns</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Drop unuseful columns</span>
+<span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;#&#39;</span><span class="p">,</span> <span class="s1">&#39;start date (utc)&#39;</span><span class="p">,</span> <span class="s1">&#39;network id&#39;</span><span class="p">,</span> <span class="s1">&#39;other&#39;</span><span class="p">,</span> <span class="s1">&#39;submit date (utc)&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add year identifying column</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;2017&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write the cleaned file back</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;./../../../datasets/cleaned_osmi_2017.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="data-cleaning-2018">
+<h2>Data cleaning - 2018<a class="headerlink" href="#data-cleaning-2018" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load 2018 data</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;./../../../datasets/osmi_2018.csv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Data Preview</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>#</th>
+      <th>&lt;strong&gt;Are you self-employed?&lt;/strong&gt;</th>
+      <th>How many employees does your company or organization have?</th>
+      <th>Is your employer primarily a tech company/organization?</th>
+      <th>Is your primary role within your company related to tech/IT?</th>
+      <th>Does your employer provide mental health benefits as part of healthcare coverage?</th>
+      <th>Do you know the options for mental health care available under your employer-provided health coverage?</th>
+      <th>Has your employer ever formally discussed mental health (for example, as part of a wellness campaign or other official communication)?</th>
+      <th>Does your employer offer resources to learn more about mental health disorders and options for seeking help?</th>
+      <th>Is your anonymity protected if you choose to take advantage of mental health or substance abuse treatment resources provided by your employer?</th>
+      <th>...</th>
+      <th>What is your gender?</th>
+      <th>What country do you &lt;strong&gt;live&lt;/strong&gt; in?</th>
+      <th>What US state or territory do you &lt;strong&gt;live&lt;/strong&gt; in?</th>
+      <th>What is your race?</th>
+      <th>Other</th>
+      <th>What country do you &lt;strong&gt;work&lt;/strong&gt; in?</th>
+      <th>What US state or territory do you &lt;strong&gt;work&lt;/strong&gt; in?</th>
+      <th>Start Date (UTC)</th>
+      <th>Submit Date (UTC)</th>
+      <th>Network ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>e44a0a34f2465940beda2a1537e9b99e</td>
+      <td>0</td>
+      <td>More than 1000</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>...</td>
+      <td>Female</td>
+      <td>Canada</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Canada</td>
+      <td>NaN</td>
+      <td>29/12/18 23:46</td>
+      <td>30/12/18 0:00</td>
+      <td>4bbb884ccc</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0d698e3beca20fb75f19b9d528e36d73</td>
+      <td>0</td>
+      <td>More than 1000</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>No</td>
+      <td>I don't know</td>
+      <td>I don't know</td>
+      <td>...</td>
+      <td>male</td>
+      <td>United States of America</td>
+      <td>Massachusetts</td>
+      <td>White</td>
+      <td>NaN</td>
+      <td>United States of America</td>
+      <td>Massachusetts</td>
+      <td>27/12/18 21:40</td>
+      <td>27/12/18 21:45</td>
+      <td>275e7543bd</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>61a40c9071eb36fa9caa254d31500c41</td>
+      <td>0</td>
+      <td>Jun-25</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>No</td>
+      <td>No</td>
+      <td>I don't know</td>
+      <td>...</td>
+      <td>Male</td>
+      <td>United States of America</td>
+      <td>Florida</td>
+      <td>White</td>
+      <td>NaN</td>
+      <td>United States of America</td>
+      <td>Florida</td>
+      <td>21/12/18 17:37</td>
+      <td>21/12/18 18:08</td>
+      <td>43994c3dba</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>f8624340bead7deb08abb766704ddf6b</td>
+      <td>0</td>
+      <td>Jun-25</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>No</td>
+      <td>No</td>
+      <td>No</td>
+      <td>No</td>
+      <td>I don't know</td>
+      <td>...</td>
+      <td>male</td>
+      <td>Norway</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Norway</td>
+      <td>NaN</td>
+      <td>21/12/18 16:37</td>
+      <td>21/12/18 16:44</td>
+      <td>907b3a3faa</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>31d3ae93b68d79e504a0a643601b6b1e</td>
+      <td>0</td>
+      <td>26-100</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>...</td>
+      <td>Ostensibly Male</td>
+      <td>United States of America</td>
+      <td>Tennessee</td>
+      <td>White</td>
+      <td>NaN</td>
+      <td>United States of America</td>
+      <td>Tennessee</td>
+      <td>20/12/18 19:39</td>
+      <td>20/12/18 20:58</td>
+      <td>26df20fea3</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 87 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Data info</span>
+<span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 417 entries, 0 to 416
+Data columns (total 87 columns):
+ #   Column                                                                                                                                                                                                                                    Non-Null Count  Dtype  
+---  ------                                                                                                                                                                                                                                    --------------  -----  
+ 0   #                                                                                                                                                                                                                                         417 non-null    object 
+ 1   &lt;strong&gt;Are you self-employed?&lt;/strong&gt;                                                                                                                                                                                                   417 non-null    int64  
+ 2   How many employees does your company or organization have?                                                                                                                                                                                361 non-null    object 
+ 3   Is your employer primarily a tech company/organization?                                                                                                                                                                                   361 non-null    float64
+ 4   Is your primary role within your company related to tech/IT?                                                                                                                                                                              361 non-null    float64
+ 5   Does your employer provide mental health benefits as part of healthcare coverage?                                                                                                                                                         361 non-null    object 
+ 6   Do you know the options for mental health care available under your employer-provided health coverage?                                                                                                                                    324 non-null    object 
+ 7   Has your employer ever formally discussed mental health (for example, as part of a wellness campaign or other official communication)?                                                                                                    361 non-null    object 
+ 8   Does your employer offer resources to learn more about mental health disorders and options for seeking help?                                                                                                                              361 non-null    object 
+ 9   Is your anonymity protected if you choose to take advantage of mental health or substance abuse treatment resources provided by your employer?                                                                                            361 non-null    object 
+ 10  If a mental health issue prompted you to request a medical leave from work, how easy or difficult would it be to ask for that leave?                                                                                                      361 non-null    object 
+ 11  Would you feel more comfortable talking to your coworkers about your physical health or your mental health?                                                                                                                               361 non-null    object 
+ 12  Would you feel comfortable discussing a mental health issue with your direct supervisor(s)?                                                                                                                                               361 non-null    object 
+ 13  Have you ever discussed your mental health with your employer?                                                                                                                                                                            361 non-null    float64
+ 14  Describe the conversation you had with your employer about your mental health, including their reactions and what actions were taken to address your mental health issue/questions.                                                       96 non-null     object 
+ 15  Would you feel comfortable discussing a mental health issue with your coworkers?                                                                                                                                                          361 non-null    object 
+ 16  Have you ever discussed your mental health with coworkers?                                                                                                                                                                                360 non-null    float64
+ 17  Describe the conversation with coworkers you had about your mental health including their reactions.                                                                                                                                      106 non-null    object 
+ 18  Have you ever had a coworker discuss their or another coworker&#39;s mental health with you?                                                                                                                                                  360 non-null    float64
+ 19  Describe the conversation your coworker had with you about their mental health (please do not use names).                                                                                                                                 124 non-null    object 
+ 20  Overall, how much importance does your employer place on physical health?                                                                                                                                                                 361 non-null    float64
+ 21  Overall, how much importance does your employer place on mental health?                                                                                                                                                                   361 non-null    float64
+ 22  Do you have medical coverage (private insurance or state-provided) that includes treatment of mental health disorders?                                                                                                                    56 non-null     float64
+ 23  Do you know local or online resources to seek help for a mental health issue?                                                                                                                                                             56 non-null     object 
+ 24  &lt;strong&gt;If you have been diagnosed or treated for a mental health disorder, do you ever reveal this to clients or business contacts?&lt;/strong&gt;                                                                                             56 non-null     object 
+ 25  If you have revealed a mental health disorder to a client or business contact, how has this affected you or the relationship?                                                                                                             21 non-null     object 
+ 26  &lt;strong&gt;If you have been diagnosed or treated for a mental health disorder, do you ever reveal this to coworkers or employees?&lt;/strong&gt;                                                                                                   56 non-null     object 
+ 27  If you have revealed a mental health disorder to a coworker or employee, how has this impacted you or the relationship?                                                                                                                   56 non-null     object 
+ 28  Do you believe your productivity is ever affected by a mental health issue?                                                                                                                                                               56 non-null     object 
+ 29  If yes, what percentage of your work time (time performing primary or secondary job functions) is affected by a mental health issue?                                                                                                      41 non-null     object 
+ 30  &lt;strong&gt;Do you have previous employers?&lt;/strong&gt;                                                                                                                                                                                          417 non-null    int64  
+ 31  Was your employer primarily a tech company/organization?                                                                                                                                                                                  363 non-null    float64
+ 32  &lt;strong&gt;Have your previous employers provided mental health benefits?&lt;/strong&gt;                                                                                                                                                            363 non-null    object 
+ 33  &lt;strong&gt;Were you aware of the options for mental health care provided by your previous employers?&lt;/strong&gt;                                                                                                                                363 non-null    object 
+ 34  Did your previous employers ever formally discuss mental health (as part of a wellness campaign or other official communication)?                                                                                                         363 non-null    object 
+ 35  Did your previous employers provide resources to learn more about mental health disorders and how to seek help?                                                                                                                           363 non-null    object 
+ 36  Was your anonymity protected if you chose to take advantage of mental health or substance abuse treatment resources with previous employers?                                                                                              363 non-null    object 
+ 37  Would you have felt more comfortable talking to your previous employer about your physical health or your mental health?                                                                                                                  363 non-null    object 
+ 38  Would you have been willing to discuss your mental health with your direct supervisor(s)?                                                                                                                                                 363 non-null    object 
+ 39  Did you ever discuss your mental health with your previous employer?                                                                                                                                                                      363 non-null    float64
+ 40  Describe the conversation you had with your previous employer about your mental health, including their reactions and actions taken to address your mental health issue/questions.                                                        60 non-null     object 
+ 41  &lt;strong&gt;Would you have been willing to discuss your mental health with your coworkers at previous employers?&lt;/strong&gt;                                                                                                                     363 non-null    object 
+ 42  Did you ever discuss your mental health with a previous coworker(s)?                                                                                                                                                                      362 non-null    float64
+ 43  Describe the conversation you had with your previous coworkers about your mental health including their reactions.                                                                                                                        92 non-null     object 
+ 44  Did you ever have a previous coworker discuss their or another coworker&#39;s mental health with you?                                                                                                                                         363 non-null    float64
+ 45  Describe the conversation your coworker had with you about their mental health (please do not use names)..1                                                                                                                               79 non-null     object 
+ 46  Overall, how much importance did your previous employer place on physical health?                                                                                                                                                         363 non-null    float64
+ 47  Overall, how much importance did your previous employer place on mental health?                                                                                                                                                           363 non-null    float64
+ 48  Do you currently have a mental health disorder?                                                                                                                                                                                           417 non-null    object 
+ 49  Have you ever been diagnosed with a mental health disorder?                                                                                                                                                                               191 non-null    object 
+ 50  What disorder(s) have you been diagnosed with?                                                                                                                                                                                            0 non-null      float64
+ 51  If possibly, what disorder(s) do you believe you have?                                                                                                                                                                                    81 non-null     object 
+ 52  If so, what disorder(s) were you diagnosed with?                                                                                                                                                                                          188 non-null    object 
+ 53  Have you had a mental health disorder in the past?                                                                                                                                                                                        415 non-null    object 
+ 54  Have you ever sought treatment for a mental health disorder from a mental health professional?                                                                                                                                            417 non-null    int64  
+ 55  Do you have a family history of mental illness?                                                                                                                                                                                           417 non-null    object 
+ 56  If you have a mental health disorder, how often do you feel that it interferes with your work &lt;strong&gt;when being treated effectively?&lt;/strong&gt;                                                                                            417 non-null    object 
+ 57  If you have a mental health disorder, how often do you feel that it interferes with your work &lt;strong&gt;when&lt;/strong&gt; &lt;em&gt;&lt;strong&gt;NOT&lt;/strong&gt;&lt;/em&gt;&lt;strong&gt; being treated effectively (i.e., when you are experiencing symptoms)?&lt;/strong&gt;  417 non-null    object 
+ 58  Have your observations of how another individual who discussed a mental health issue made you less likely to reveal a mental health issue yourself in your current workplace?                                                             320 non-null    object 
+ 59  How willing would you be to share with friends and family that you have a mental illness?                                                                                                                                                 417 non-null    int64  
+ 60  Would you be willing to bring up a physical health issue with a potential employer in an interview?                                                                                                                                       417 non-null    object 
+ 61  Why or why not?                                                                                                                                                                                                                           326 non-null    object 
+ 62  Would you bring up your mental health with a potential employer in an interview?                                                                                                                                                          417 non-null    object 
+ 63  Why or why not?.1                                                                                                                                                                                                                         333 non-null    object 
+ 64  Are you openly identified at work as a person with a mental health issue?                                                                                                                                                                 417 non-null    int64  
+ 65  Has being identified as a person with a mental health issue affected your career?                                                                                                                                                         51 non-null     float64
+ 66  How has it affected your career?                                                                                                                                                                                                          16 non-null     float64
+ 67  If they knew you suffered from a mental health disorder, how do you think that team members/co-workers would react?                                                                                                                       417 non-null    int64  
+ 68  &lt;strong&gt;Have you observed or experienced an unsupportive or badly handled response to a mental health issue in your current or previous workplace?&lt;/strong&gt;                                                                               417 non-null    object 
+ 69  Describe the circumstances of the badly handled or unsupportive response.                                                                                                                                                                 91 non-null     object 
+ 70  &lt;strong&gt;Have you observed or experienced supportive or well handled response to a mental health issue in your current or previous workplace?&lt;/strong&gt;                                                                                     417 non-null    object 
+ 71  Describe the circumstances of the supportive or well handled response.                                                                                                                                                                    0 non-null      float64
+ 72  Overall, how well do you think the tech industry supports employees with mental health issues?                                                                                                                                            417 non-null    int64  
+ 73  Briefly describe what you think the industry as a whole and/or employers could do to improve mental health support for employees.                                                                                                         289 non-null    object 
+ 74  If there is anything else you would like to tell us that has not been covered by the survey questions, please use this space to do so.                                                                                                    98 non-null     object 
+ 75  Would you be willing to talk to one of us more extensively about your experiences with mental health issues in the tech industry? (Note that all interview responses would be used &lt;em&gt;anonymously&lt;/em&gt; and only with your permission.)   417 non-null    int64  
+ 76  What is your age?                                                                                                                                                                                                                         417 non-null    int64  
+ 77  What is your gender?                                                                                                                                                                                                                      414 non-null    object 
+ 78  What country do you &lt;strong&gt;live&lt;/strong&gt; in?                                                                                                                                                                                             417 non-null    object 
+ 79  What US state or territory do you &lt;strong&gt;live&lt;/strong&gt; in?                                                                                                                                                                               311 non-null    object 
+ 80  What is your race?                                                                                                                                                                                                                        302 non-null    object 
+ 81  Other                                                                                                                                                                                                                                     9 non-null      object 
+ 82  What country do you &lt;strong&gt;work&lt;/strong&gt; in?                                                                                                                                                                                             417 non-null    object 
+ 83  What US state or territory do you &lt;strong&gt;work&lt;/strong&gt; in?                                                                                                                                                                               314 non-null    object 
+ 84  Start Date (UTC)                                                                                                                                                                                                                          417 non-null    object 
+ 85  Submit Date (UTC)                                                                                                                                                                                                                         417 non-null    object 
+ 86  Network ID                                                                                                                                                                                                                                417 non-null    object 
+dtypes: float64(18), int64(9), object(60)
+memory usage: 283.6+ KB
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Lower the column names</span>
+<span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns</span>  <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+<span class="c1"># Remove html tags from the column names</span>
+<span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;&lt;.*?&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">column</span><span class="p">)</span> <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Reassign the columns to the respective dataframes</span>
+<span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">columns</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Drop unuseful columns</span>
+<span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;#&#39;</span><span class="p">,</span> <span class="s1">&#39;start date (utc)&#39;</span><span class="p">,</span> <span class="s1">&#39;network id&#39;</span><span class="p">,</span> <span class="s1">&#39;other&#39;</span><span class="p">,</span> <span class="s1">&#39;submit date (utc)&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add year identifying column</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;2018&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write the cleaned file back</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;./../../../datasets/cleaned_osmi_2018.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="data-cleaning-2019">
+<h2>Data cleaning - 2019<a class="headerlink" href="#data-cleaning-2019" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load 2019 data</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;./../../../datasets/osmi_2019.csv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Data preview</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>*Are you self-employed?*</th>
+      <th>How many employees does your company or organization have?</th>
+      <th>Is your employer primarily a tech company/organization?</th>
+      <th>Is your primary role within your company related to tech/IT?</th>
+      <th>Does your employer provide mental health benefits as part of healthcare coverage?</th>
+      <th>Do you know the options for mental health care available under your employer-provided health coverage?</th>
+      <th>Has your employer ever formally discussed mental health (for example, as part of a wellness campaign or other official communication)?</th>
+      <th>Does your employer offer resources to learn more about mental health disorders and options for seeking help?</th>
+      <th>Is your anonymity protected if you choose to take advantage of mental health or substance abuse treatment resources provided by your employer?</th>
+      <th>If a mental health issue prompted you to request a medical leave from work, how easy or difficult would it be to ask for that leave?</th>
+      <th>...</th>
+      <th>Briefly describe what you think the industry as a whole and/or employers could do to improve mental health support for employees.</th>
+      <th>If there is anything else you would like to tell us that has not been covered by the survey questions, please use this space to do so.</th>
+      <th>Would you be willing to talk to one of us more extensively about your experiences with mental health issues in the tech industry? (Note that all interview responses would be used _anonymously_ and only with your permission.)</th>
+      <th>What is your age?</th>
+      <th>What is your gender?</th>
+      <th>What country do you *live* in?</th>
+      <th>What US state or territory do you *live* in?</th>
+      <th>What is your race?</th>
+      <th>What country do you *work* in?</th>
+      <th>What US state or territory do you *work* in?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>False</td>
+      <td>26-100</td>
+      <td>True</td>
+      <td>True</td>
+      <td>I don't know</td>
+      <td>No</td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>I don't know</td>
+      <td>Very easy</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>False</td>
+      <td>25</td>
+      <td>Male</td>
+      <td>United States of America</td>
+      <td>Nebraska</td>
+      <td>White</td>
+      <td>United States of America</td>
+      <td>Nebraska</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>False</td>
+      <td>26-100</td>
+      <td>True</td>
+      <td>True</td>
+      <td>Yes</td>
+      <td>No</td>
+      <td>No</td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>I don't know</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>False</td>
+      <td>51</td>
+      <td>male</td>
+      <td>United States of America</td>
+      <td>Nebraska</td>
+      <td>White</td>
+      <td>United States of America</td>
+      <td>Nebraska</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>False</td>
+      <td>26-100</td>
+      <td>True</td>
+      <td>True</td>
+      <td>I don't know</td>
+      <td>No</td>
+      <td>No</td>
+      <td>I don't know</td>
+      <td>I don't know</td>
+      <td>Somewhat difficult</td>
+      <td>...</td>
+      <td>I think opening up more conversation around th...</td>
+      <td>Thank you</td>
+      <td>True</td>
+      <td>27</td>
+      <td>Male</td>
+      <td>United States of America</td>
+      <td>Illinois</td>
+      <td>White</td>
+      <td>United States of America</td>
+      <td>Illinois</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>False</td>
+      <td>100-500</td>
+      <td>True</td>
+      <td>True</td>
+      <td>I don't know</td>
+      <td>No</td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>Very easy</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>False</td>
+      <td>37</td>
+      <td>male</td>
+      <td>United States of America</td>
+      <td>Nebraska</td>
+      <td>White</td>
+      <td>United States of America</td>
+      <td>Nebraska</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>False</td>
+      <td>26-100</td>
+      <td>True</td>
+      <td>True</td>
+      <td>I don't know</td>
+      <td>No</td>
+      <td>I don't know</td>
+      <td>I don't know</td>
+      <td>I don't know</td>
+      <td>I don't know</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>False</td>
+      <td>46</td>
+      <td>m</td>
+      <td>United States of America</td>
+      <td>Nebraska</td>
+      <td>White</td>
+      <td>United States of America</td>
+      <td>Nebraska</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 82 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Data info</span>
+<span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 352 entries, 0 to 351
+Data columns (total 82 columns):
+ #   Column                                                                                                                                                                                                                            Non-Null Count  Dtype  
+---  ------                                                                                                                                                                                                                            --------------  -----  
+ 0   *Are you self-employed?*                                                                                                                                                                                                          352 non-null    bool   
+ 1   How many employees does your company or organization have?                                                                                                                                                                        304 non-null    object 
+ 2   Is your employer primarily a tech company/organization?                                                                                                                                                                           304 non-null    object 
+ 3   Is your primary role within your company related to tech/IT?                                                                                                                                                                      304 non-null    object 
+ 4   Does your employer provide mental health benefits as part of healthcare coverage?                                                                                                                                                 304 non-null    object 
+ 5   Do you know the options for mental health care available under your employer-provided health coverage?                                                                                                                            278 non-null    object 
+ 6   Has your employer ever formally discussed mental health (for example, as part of a wellness campaign or other official communication)?                                                                                            304 non-null    object 
+ 7   Does your employer offer resources to learn more about mental health disorders and options for seeking help?                                                                                                                      304 non-null    object 
+ 8   Is your anonymity protected if you choose to take advantage of mental health or substance abuse treatment resources provided by your employer?                                                                                    304 non-null    object 
+ 9   If a mental health issue prompted you to request a medical leave from work, how easy or difficult would it be to ask for that leave?                                                                                              304 non-null    object 
+ 10  Would you feel more comfortable talking to your coworkers about your physical health or your mental health?                                                                                                                       304 non-null    object 
+ 11  Would you feel comfortable discussing a mental health issue with your direct supervisor(s)?                                                                                                                                       304 non-null    object 
+ 12  Have you ever discussed your mental health with your employer?                                                                                                                                                                    304 non-null    object 
+ 13  Describe the conversation you had with your employer about your mental health, including their reactions and what actions were taken to address your mental health issue/questions.                                               84 non-null     object 
+ 14  Would you feel comfortable discussing a mental health issue with your coworkers?                                                                                                                                                  304 non-null    object 
+ 15  Have you ever discussed your mental health with coworkers?                                                                                                                                                                        301 non-null    object 
+ 16  Describe the conversation with coworkers you had about your mental health including their reactions.                                                                                                                              119 non-null    object 
+ 17  Have you ever had a coworker discuss their or another coworker&#39;s mental health with you?                                                                                                                                          304 non-null    object 
+ 18  Describe the conversation your coworker had with you about their mental health (please do not use names).                                                                                                                         110 non-null    object 
+ 19  Overall, how much importance does your employer place on physical health?                                                                                                                                                         304 non-null    float64
+ 20  Overall, how much importance does your employer place on mental health?                                                                                                                                                           304 non-null    float64
+ 21  Do you have medical coverage (private insurance or state-provided) that includes treatment of mental health disorders?                                                                                                            48 non-null     object 
+ 22  Do you know local or online resources to seek help for a mental health issue?                                                                                                                                                     48 non-null     object 
+ 23  If you have been diagnosed or treated for a mental health disorder, do you ever reveal this to clients or business contacts?                                                                                                      48 non-null     object 
+ 24  If you have revealed a mental health disorder to a client or business contact, how has this affected you or the relationship?                                                                                                     20 non-null     object 
+ 25  If you have been diagnosed or treated for a mental health disorder, do you ever reveal this to coworkers or employees?                                                                                                            48 non-null     object 
+ 26  If you have revealed a mental health disorder to a coworker or employee, how has this impacted you or the relationship?                                                                                                           48 non-null     object 
+ 27  Do you believe your productivity is ever affected by a mental health issue?                                                                                                                                                       48 non-null     object 
+ 28  If yes, what percentage of your work time (time performing primary or secondary job functions) is affected by a mental health issue?                                                                                              37 non-null     object 
+ 29  *Do you have previous employers?*                                                                                                                                                                                                 352 non-null    bool   
+ 30  Was your employer primarily a tech company/organization?                                                                                                                                                                          296 non-null    object 
+ 31  Have your previous employers provided mental health benefits?                                                                                                                                                                     296 non-null    object 
+ 32  Were you aware of the options for mental health care provided by your previous employers?                                                                                                                                         296 non-null    object 
+ 33  Did your previous employers ever formally discuss mental health (as part of a wellness campaign or other official communication)?                                                                                                 296 non-null    object 
+ 34  Did your previous employers provide resources to learn more about mental health disorders and how to seek help?                                                                                                                   296 non-null    object 
+ 35  Was your anonymity protected if you chose to take advantage of mental health or substance abuse treatment resources with previous employers?                                                                                      296 non-null    object 
+ 36  Would you have felt more comfortable talking to your previous employer about your physical health or your mental health?                                                                                                          296 non-null    object 
+ 37  Would you have been willing to discuss your mental health with your direct supervisor(s)?                                                                                                                                         296 non-null    object 
+ 38  Did you ever discuss your mental health with your previous employer?                                                                                                                                                              296 non-null    object 
+ 39  Describe the conversation you had with your previous employer about your mental health, including their reactions and actions taken to address your mental health issue/questions.                                                63 non-null     object 
+ 40  Would you have been willing to discuss your mental health with your coworkers at previous employers?                                                                                                                              296 non-null    object 
+ 41  Did you ever discuss your mental health with a previous coworker(s)?                                                                                                                                                              294 non-null    object 
+ 42  Describe the conversation you had with your previous coworkers about your mental health including their reactions.                                                                                                                85 non-null     object 
+ 43  Did you ever have a previous coworker discuss their or another coworker&#39;s mental health with you?                                                                                                                                 295 non-null    object 
+ 44  Describe the conversation your coworker had with you about their mental health (please do not use names)..1                                                                                                                       66 non-null     object 
+ 45  Overall, how much importance did your previous employer place on physical health?                                                                                                                                                 296 non-null    float64
+ 46  Overall, how much importance did your previous employer place on mental health?                                                                                                                                                   296 non-null    float64
+ 47  Do you *currently* have a mental health disorder?                                                                                                                                                                                 352 non-null    object 
+ 48  Have you ever been *diagnosed* with a mental health disorder?                                                                                                                                                                     147 non-null    object 
+ 49  *What disorder(s) have you been diagnosed with?*                                                                                                                                                                                  0 non-null      float64
+ 50  *If possibly, what disorder(s) do you believe you have?*                                                                                                                                                                          72 non-null     object 
+ 51  *If so, what disorder(s) were you diagnosed with?*                                                                                                                                                                                144 non-null    object 
+ 52  Have you had a mental health disorder in the past?                                                                                                                                                                                349 non-null    object 
+ 53  Have you ever sought treatment for a mental health disorder from a mental health professional?                                                                                                                                    352 non-null    bool   
+ 54  Do you have a family history of mental illness?                                                                                                                                                                                   352 non-null    object 
+ 55  If you have a mental health disorder, how often do you feel that it interferes with your work *when being treated effectively?*                                                                                                   352 non-null    object 
+ 56  If you have a mental health disorder, how often do you feel that it interferes with your work *when* _*NOT*_* being treated effectively (i.e., when you are experiencing symptoms)?*                                              352 non-null    object 
+ 57  Have your observations of how another individual who discussed a mental health issue made you less likely to reveal a mental health issue yourself in your current workplace?                                                     282 non-null    object 
+ 58  How willing would you be to share with friends and family that you have a mental illness?                                                                                                                                         352 non-null    int64  
+ 59  Would you be willing to bring up a physical health issue with a potential employer in an interview?                                                                                                                               352 non-null    object 
+ 60  Why or why not?                                                                                                                                                                                                                   273 non-null    object 
+ 61  Would you bring up your *mental* health with a potential employer in an interview?                                                                                                                                                352 non-null    object 
+ 62  Why or why not?.1                                                                                                                                                                                                                 285 non-null    object 
+ 63  Are you openly identified at work as a person with a mental health issue?                                                                                                                                                         352 non-null    bool   
+ 64  Has being identified as a person with a mental health issue affected your career?                                                                                                                                                 45 non-null     object 
+ 65  How has it affected your career?                                                                                                                                                                                                  18 non-null     float64
+ 66  If they knew you suffered from a mental health disorder, how do you think that your team members/co-workers would react?                                                                                                          352 non-null    int64  
+ 67  Have you observed or experienced an *unsupportive or badly handled response* to a mental health issue in your current or previous workplace?                                                                                      352 non-null    object 
+ 68  Describe the circumstances of the badly handled or unsupportive response.                                                                                                                                                         89 non-null     object 
+ 69  Have you observed or experienced a *supportive or well handled response* to a mental health issue in your current or previous workplace?                                                                                          352 non-null    object 
+ 70  Describe the circumstances of the supportive or well handled response.                                                                                                                                                            0 non-null      float64
+ 71  Overall, how well do you think the tech industry supports employees with mental health issues?                                                                                                                                    352 non-null    int64  
+ 72  Briefly describe what you think the industry as a whole and/or employers could do to improve mental health support for employees.                                                                                                 254 non-null    object 
+ 73  If there is anything else you would like to tell us that has not been covered by the survey questions, please use this space to do so.                                                                                            100 non-null    object 
+ 74  Would you be willing to talk to one of us more extensively about your experiences with mental health issues in the tech industry? (Note that all interview responses would be used _anonymously_ and only with your permission.)  352 non-null    bool   
+ 75  What is your age?                                                                                                                                                                                                                 352 non-null    int64  
+ 76  What is your gender?                                                                                                                                                                                                              347 non-null    object 
+ 77  What country do you *live* in?                                                                                                                                                                                                    352 non-null    object 
+ 78  What US state or territory do you *live* in?                                                                                                                                                                                      204 non-null    object 
+ 79  What is your race?                                                                                                                                                                                                                204 non-null    object 
+ 80  What country do you *work* in?                                                                                                                                                                                                    352 non-null    object 
+ 81  What US state or territory do you *work* in?                                                                                                                                                                                      204 non-null    object 
+dtypes: bool(5), float64(7), int64(4), object(66)
+memory usage: 213.6+ KB
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Lower the column names</span>
+<span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Remove special characters from the columns of year 2019</span>
+<span class="n">columns</span>  <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+<span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">column</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">]</span>
+<span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">column</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign the column names back to the dataframe</span>
+<span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">columns</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Rename mismatched column names</span>
+<span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;if they knew you suffered from a mental health disorder, how do you think that your team members/co-workers would react?&#39;</span><span class="p">:</span>
+                        <span class="s1">&#39;if they knew you suffered from a mental health disorder, how do you think that team members/co-workers would react?&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;have you observed or experienced a supportive or well handled response to a mental health issue in your current or previous workplace?&#39;</span><span class="p">:</span>
+                        <span class="s1">&#39;have you observed or experienced supportive or well handled response to a mental health issue in your current or previous workplace?&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;2019&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write the cleaned file back</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;./../../../datasets/cleaned_osmi_2019.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./docs/data_preparation"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="../../intro.html" title="previous page">Welcome to your Jupyter Book</a>
+    <a class='right-next' id="next-link" href="select_n_combine_columns.html" title="next page">Data Selection and Segregation</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Pushkar Patil<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../../_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>
