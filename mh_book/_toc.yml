@@ -1,0 +1,9 @@
+# Table of content
+# Learn more at https://jupyterbook.org/customize/toc.html
+#
+- file: intro
+
+- part: Data Preparation
+  chapters:
+    - file: docs/data_preparation/data_cleaning.ipynb
+    - file: docs/data_preparation/select_n_combine_columns.ipynb
