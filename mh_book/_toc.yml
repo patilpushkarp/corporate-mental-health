@@ -3,6 +3,10 @@
 #
 - file: intro
 
+- part: Data Understanding
+  chapters:
+    - file: docs/data_understanding/dataset_intro.md
+
 - part: Data Preparation
   chapters:
     - file: docs/data_preparation/data_cleaning.ipynb
