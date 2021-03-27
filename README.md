@@ -1,3 +1,4 @@
-# Corporate Mental Health
+# [Corporate Mental Health](https://patilpushkarp.github.io/corporate-mental-health)
 
-Data Analysis project for mental health of tech related employees.
+The recent pandemic has changed the way people work drastically. This change has took a toll on our physical as well as mental health. Though people have people more conscious and alert as far as the physical health is concerned but mental health has taken a back seat. We ignoring our mental health is not a new thing but it is appropriate time to bring about the change and confront the undesirable.
+This project is aimed at knowing how different parameters regarding our work play an important role in determining the need to seek help from mental health professionals. 
