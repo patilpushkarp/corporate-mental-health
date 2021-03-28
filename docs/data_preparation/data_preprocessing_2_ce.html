@@ -276,9 +276,11 @@
 </div>
 </div>
 </div>
+<p>It is better to drop columns which have more than half missing values. Columns such as these does not provide any relevant information and models can’t learn from such columns.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Drop irrelevant columns</span>
+<span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">//</span><span class="mi">2</span><span class="p">):</span>
         <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
@@ -287,7 +289,8 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">shape</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check final shape of dataframe</span>
+<span class="n">df</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 </div>
 </div>
@@ -310,65 +313,16 @@
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="../../_images/data_preprocessing_2_ce_8_1.png" src="../../_images/data_preprocessing_2_ce_8_1.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msn</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">14</span><span class="o">-</span><span class="mi">0</span><span class="n">dd428564e0f</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">msn</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
-
-<span class="nn">~/miniconda3/envs/mh/lib/python3.8/site-packages/missingno/missingno.py</span> in <span class="ni">bar</span><span class="nt">(df, figsize, fontsize, labels, log, color, inline, filter, n, p, sort, ax)</span>
-<span class="g g-Whitespace">    </span><span class="mi">264</span>     <span class="n">ax3</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">ax1</span><span class="o">.</span><span class="n">get_xticks</span><span class="p">())</span>
-<span class="g g-Whitespace">    </span><span class="mi">265</span>     <span class="n">ax3</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">ax1</span><span class="o">.</span><span class="n">get_xlim</span><span class="p">())</span>
-<span class="ne">--&gt; </span><span class="mi">266</span>     <span class="n">ax3</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">nullity_counts</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fontsize</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">267</span>     <span class="n">ax3</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">268</span> 
-
-<span class="nn">~/miniconda3/envs/mh/lib/python3.8/site-packages/matplotlib/axes/_base.py</span> in <span class="ni">wrapper</span><span class="nt">(self, *args, **kwargs)</span>
-<span class="g g-Whitespace">     </span><span class="mi">61</span> 
-<span class="g g-Whitespace">     </span><span class="mi">62</span>         <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="ne">---&gt; </span><span class="mi">63</span>             <span class="k">return</span> <span class="n">get_method</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">64</span> 
-<span class="g g-Whitespace">     </span><span class="mi">65</span>         <span class="n">wrapper</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">=</span> <span class="n">owner</span><span class="o">.</span><span class="vm">__module__</span>
-
-<span class="nn">~/miniconda3/envs/mh/lib/python3.8/site-packages/matplotlib/cbook/deprecation.py</span> in <span class="ni">wrapper</span><span class="nt">(*args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">449</span>                 <span class="s2">&quot;parameter will become keyword-only </span><span class="si">%(removal)s</span><span class="s2">.&quot;</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">450</span>                 <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">obj_type</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;parameter of </span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">()&quot;</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">451</span>         <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">452</span> 
-<span class="g g-Whitespace">    </span><span class="mi">453</span>     <span class="k">return</span> <span class="n">wrapper</span>
-
-<span class="nn">~/miniconda3/envs/mh/lib/python3.8/site-packages/matplotlib/axis.py</span> in <span class="ni">_set_ticklabels</span><span class="nt">(self, labels, fontdict, minor, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1794</span>         <span class="k">if</span> <span class="n">fontdict</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1795</span>             <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">fontdict</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1796</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_ticklabels</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">minor</span><span class="o">=</span><span class="n">minor</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1797</span> 
-<span class="g g-Whitespace">   </span><span class="mi">1798</span>     <span class="nd">@cbook</span><span class="o">.</span><span class="n">_make_keyword_only</span><span class="p">(</span><span class="s2">&quot;3.2&quot;</span><span class="p">,</span> <span class="s2">&quot;minor&quot;</span><span class="p">)</span>
-
-<span class="nn">~/miniconda3/envs/mh/lib/python3.8/site-packages/matplotlib/axis.py</span> in <span class="ni">set_ticklabels</span><span class="nt">(self, ticklabels, minor, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1715</span>             <span class="c1"># remove all tick labels, so only error for &gt; 0 ticklabels</span>
-<span class="g g-Whitespace">   </span><span class="mi">1716</span>             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">locator</span><span class="o">.</span><span class="n">locs</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ticklabels</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">ticklabels</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1717</span>                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1718</span>                     <span class="s2">&quot;The number of FixedLocator locations&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1719</span>                     <span class="sa">f</span><span class="s2">&quot; (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">locator</span><span class="o">.</span><span class="n">locs</span><span class="p">)</span><span class="si">}</span><span class="s2">), usually from a call to&quot;</span>
-
-<span class="ne">ValueError</span>: The number of FixedLocator locations (0), usually from a call to set_ticks, does not match the number of ticklabels (55).
-</pre></div>
-</div>
 <img alt="../../_images/data_preprocessing_2_ce_9_1.png" src="../../_images/data_preprocessing_2_ce_9_1.png" />
 </div>
 </div>
+<p>The above graoh is showing the positions of mising values in the dataframe. The missing values are nearly uniformly scatter and hence it would be better to treat them as per the information that the columns want to convey.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msn</span><span class="o">.</span><span class="n">dendrogram</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the dendrogram</span>
+<span class="n">msn</span><span class="o">.</span><span class="n">dendrogram</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+<span class="c1"># Double click on the chart to zoom in and zoom out.</span>
 </pre></div>
 </div>
 </div>
@@ -376,9 +330,11 @@
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="../../_images/data_preprocessing_2_ce_10_1.png" src="../../_images/data_preprocessing_2_ce_10_1.png" />
+<img alt="../../_images/data_preprocessing_2_ce_11_1.png" src="../../_images/data_preprocessing_2_ce_11_1.png" />
 </div>
 </div>
+<p>Dendrogram is generated by hierarchical clustering algorithm to bin variables against each other based on their nullity correlation. The columns which are linked at a distance of zero can fully predict the presence of each other.<br />
+AS per the graph, the features related to importance provided by the employers to the mental health and the features which express how the employees are treated with regards to mental health can fully predict each others presence. Similary, features related to demograhic information and other general information and features related to how person treats and feels about herself with regards to mental illness can also fully predict each others presence. There are two ways they can predict their presence one either one variable is always empty and other is always filled, or they might always be filled or both empty. In our case, it is more likely that that features which are linked at zero distance are always present.</p>
 </div>
 </div>
 
