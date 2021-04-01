@@ -1,0 +1,1074 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Random Forest Classifier &#8212; Corporate Mental Health</title>
+    
+  <link rel="stylesheet" href="../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../index.html">
+  
+  <img src="../../_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Corporate Mental Health</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../intro.html">
+   Corporate Mental Health
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Data Understanding
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../data_understanding/dataset_intro.html">
+   Dataset Introduction
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Data Preparation
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../data_preparation/data_cleaning.html">
+   Data Preparation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../data_preparation/select_n_combine_columns.html">
+   Data Selection and Segregation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../data_preparation/data_preprocessing_2_ce.html">
+   Data Preprocessing - 2 - Company Employed
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/docs/models/rf.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/patilpushkarp/corporate-mental-health"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/patilpushkarp/corporate-mental-health/issues/new?title=Issue%20on%20page%20%2Fdocs/models/rf.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/patilpushkarp/corporate-mental-health/main?urlpath=tree/mh_book/docs/models/rf.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i>
+            Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#modelling-company-employees">
+   Modelling Company Employees
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#splitting-data">
+     Splitting data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#categorical-features-encoding">
+     Categorical features encoding
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#imbalance-check">
+     Imbalance check
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#model-training">
+     Model training
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#model-evaluation">
+     Model Evaluation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#fairness-evaluation">
+     Fairness evaluation
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="random-forest-classifier">
+<h1>Random Forest Classifier<a class="headerlink" href="#random-forest-classifier" title="Permalink to this headline">¶</a></h1>
+<p>We begin our analysis with randomm forest classifer. Random forest is the meta estimator which fits number of decision tree classifiers on various subsamples of data and uses averaging for improving the model accuracy.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load required packages</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">imblearn.over_sampling</span> <span class="kn">import</span> <span class="n">SMOTE</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span><span class="p">,</span> <span class="n">StratifiedKFold</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">classification_report</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="modelling-company-employees">
+<h2>Modelling Company Employees<a class="headerlink" href="#modelling-company-employees" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load data into dataframe</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./../../../datasets/preprocessed_ce.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="splitting-data">
+<h3>Splitting data<a class="headerlink" href="#splitting-data" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tgt_col</span> <span class="o">=</span> <span class="s1">&#39;have you ever sought treatment for a mental health disorder from a mental health professional?&#39;</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">tgt_col</span><span class="p">]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">tgt_col</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s check if the data is imbalanced or not.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Split data into trainining and testing set</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Keep copy of original variables</span>
+<span class="n">X_train_ori</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">X_test_ori</span> <span class="o">=</span> <span class="n">X_test</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="categorical-features-encoding">
+<h3>Categorical features encoding<a class="headerlink" href="#categorical-features-encoding" title="Permalink to this headline">¶</a></h3>
+<p>Before we move forward to encode categorical features, it is necessary to identify them first.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 1225 entries, 0 to 1224
+Data columns (total 55 columns):
+ #   Column                                                                                                                                                                                                                          Non-Null Count  Dtype  
+---  ------                                                                                                                                                                                                                          --------------  -----  
+ 0   are you self-employed?                                                                                                                                                                                                          1225 non-null   int64  
+ 1   how many employees does your company or organization have?                                                                                                                                                                      1225 non-null   object 
+ 2   is your employer primarily a tech company/organization?                                                                                                                                                                         1225 non-null   float64
+ 3   is your primary role within your company related to tech/it?                                                                                                                                                                    1225 non-null   float64
+ 4   does your employer provide mental health benefits as part of healthcare coverage?                                                                                                                                               1225 non-null   object 
+ 5   do you know the options for mental health care available under your employer-provided health coverage?                                                                                                                          1225 non-null   object 
+ 6   has your employer ever formally discussed mental health (for example, as part of a wellness campaign or other official communication)?                                                                                          1225 non-null   object 
+ 7   does your employer offer resources to learn more about mental health disorders and options for seeking help?                                                                                                                    1225 non-null   object 
+ 8   is your anonymity protected if you choose to take advantage of mental health or substance abuse treatment resources provided by your employer?                                                                                  1225 non-null   object 
+ 9   if a mental health issue prompted you to request a medical leave from work, how easy or difficult would it be to ask for that leave?                                                                                            1225 non-null   object 
+ 10  would you feel more comfortable talking to your coworkers about your physical health or your mental health?                                                                                                                     1225 non-null   object 
+ 11  would you feel comfortable discussing a mental health issue with your direct supervisor(s)?                                                                                                                                     1225 non-null   object 
+ 12  have you ever discussed your mental health with your employer?                                                                                                                                                                  1225 non-null   float64
+ 13  would you feel comfortable discussing a mental health issue with your coworkers?                                                                                                                                                1225 non-null   object 
+ 14  have you ever discussed your mental health with coworkers?                                                                                                                                                                      1225 non-null   float64
+ 15  have you ever had a coworker discuss their or another coworker&#39;s mental health with you?                                                                                                                                        1225 non-null   float64
+ 16  overall, how much importance does your employer place on physical health?                                                                                                                                                       1225 non-null   float64
+ 17  overall, how much importance does your employer place on mental health?                                                                                                                                                         1225 non-null   float64
+ 18  do you have previous employers?                                                                                                                                                                                                 1225 non-null   int64  
+ 19  was your employer primarily a tech company/organization?                                                                                                                                                                        1225 non-null   float64
+ 20  have your previous employers provided mental health benefits?                                                                                                                                                                   1225 non-null   object 
+ 21  were you aware of the options for mental health care provided by your previous employers?                                                                                                                                       1225 non-null   object 
+ 22  did your previous employers ever formally discuss mental health (as part of a wellness campaign or other official communication)?                                                                                               1225 non-null   object 
+ 23  did your previous employers provide resources to learn more about mental health disorders and how to seek help?                                                                                                                 1225 non-null   object 
+ 24  was your anonymity protected if you chose to take advantage of mental health or substance abuse treatment resources with previous employers?                                                                                    1225 non-null   object 
+ 25  would you have felt more comfortable talking to your previous employer about your physical health or your mental health?                                                                                                        1225 non-null   object 
+ 26  would you have been willing to discuss your mental health with your direct supervisor(s)?                                                                                                                                       1225 non-null   object 
+ 27  did you ever discuss your mental health with your previous employer?                                                                                                                                                            1225 non-null   float64
+ 28  would you have been willing to discuss your mental health with your coworkers at previous employers?                                                                                                                            1225 non-null   object 
+ 29  did you ever discuss your mental health with a previous coworker(s)?                                                                                                                                                            1225 non-null   float64
+ 30  did you ever have a previous coworker discuss their or another coworker&#39;s mental health with you?                                                                                                                               1225 non-null   float64
+ 31  overall, how much importance did your previous employer place on physical health?                                                                                                                                               1225 non-null   float64
+ 32  overall, how much importance did your previous employer place on mental health?                                                                                                                                                 1225 non-null   float64
+ 33  do you currently have a mental health disorder?                                                                                                                                                                                 1225 non-null   object 
+ 34  have you had a mental health disorder in the past?                                                                                                                                                                              1225 non-null   object 
+ 35  have you ever sought treatment for a mental health disorder from a mental health professional?                                                                                                                                  1225 non-null   int64  
+ 36  do you have a family history of mental illness?                                                                                                                                                                                 1225 non-null   object 
+ 37  if you have a mental health disorder, how often do you feel that it interferes with your work when being treated effectively?                                                                                                   1225 non-null   object 
+ 38  if you have a mental health disorder, how often do you feel that it interferes with your work when not being treated effectively (i.e., when you are experiencing symptoms)?                                                    1225 non-null   object 
+ 39  have your observations of how another individual who discussed a mental health issue made you less likely to reveal a mental health issue yourself in your current workplace?                                                   1225 non-null   object 
+ 40  how willing would you be to share with friends and family that you have a mental illness?                                                                                                                                       1225 non-null   int64  
+ 41  would you be willing to bring up a physical health issue with a potential employer in an interview?                                                                                                                             1225 non-null   object 
+ 42  would you bring up your mental health with a potential employer in an interview?                                                                                                                                                1225 non-null   object 
+ 43  are you openly identified at work as a person with a mental health issue?                                                                                                                                                       1225 non-null   float64
+ 44  if they knew you suffered from a mental health disorder, how do you think that team members/co-workers would react?                                                                                                             1225 non-null   float64
+ 45  have you observed or experienced an unsupportive or badly handled response to a mental health issue in your current or previous workplace?                                                                                      1225 non-null   object 
+ 46  have you observed or experienced supportive or well handled response to a mental health issue in your current or previous workplace?                                                                                            1225 non-null   object 
+ 47  overall, how well do you think the tech industry supports employees with mental health issues?                                                                                                                                  1225 non-null   float64
+ 48  would you be willing to talk to one of us more extensively about your experiences with mental health issues in the tech industry? (note that all interview responses would be used anonymously and only with your permission.)  1225 non-null   float64
+ 49  what is your age?                                                                                                                                                                                                               1225 non-null   float64
+ 50  what is your gender?                                                                                                                                                                                                            1225 non-null   object 
+ 51  what country do you live in?                                                                                                                                                                                                    1225 non-null   object 
+ 52  what is your race?                                                                                                                                                                                                              1225 non-null   object 
+ 53  what country do you work in?                                                                                                                                                                                                    1225 non-null   object 
+ 54  year                                                                                                                                                                                                                            1225 non-null   int64  
+dtypes: float64(18), int64(5), object(32)
+memory usage: 526.5+ KB
+</pre></div>
+</div>
+</div>
+</div>
+<p>Looking at the information of dataframe, there are quite a lot of fetuares which has data type as “object”. It is not necessary that all the features with data type as “object” be categorical features. There may be certain columns which might binary values which can be represented by booleans. It is better to check column one by one.<br />
+But for now, I would like to go with the assumption that all the columns with data type as “object” are categorical columns.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cat_cols</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;object&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span>
+<span class="n">cat_cols</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;how many employees does your company or organization have?&#39;,
+       &#39;does your employer provide mental health benefits as part of healthcare coverage?&#39;,
+       &#39;do you know the options for mental health care available under your employer-provided health coverage?&#39;,
+       &#39;has your employer ever formally discussed mental health (for example, as part of a wellness campaign or other official communication)?&#39;,
+       &#39;does your employer offer resources to learn more about mental health disorders and options for seeking help?&#39;,
+       &#39;is your anonymity protected if you choose to take advantage of mental health or substance abuse treatment resources provided by your employer?&#39;,
+       &#39;if a mental health issue prompted you to request a medical leave from work, how easy or difficult would it be to ask for that leave?&#39;,
+       &#39;would you feel more comfortable talking to your coworkers about your physical health or your mental health?&#39;,
+       &#39;would you feel comfortable discussing a mental health issue with your direct supervisor(s)?&#39;,
+       &#39;would you feel comfortable discussing a mental health issue with your coworkers?&#39;,
+       &#39;have your previous employers provided mental health benefits?&#39;,
+       &#39;were you aware of the options for mental health care provided by your previous employers?&#39;,
+       &#39;did your previous employers ever formally discuss mental health (as part of a wellness campaign or other official communication)?&#39;,
+       &#39;did your previous employers provide resources to learn more about mental health disorders and how to seek help?&#39;,
+       &#39;was your anonymity protected if you chose to take advantage of mental health or substance abuse treatment resources with previous employers?&#39;,
+       &#39;would you have felt more comfortable talking to your previous employer about your physical health or your mental health?&#39;,
+       &#39;would you have been willing to discuss your mental health with your direct supervisor(s)?&#39;,
+       &#39;would you have been willing to discuss your mental health with your coworkers at previous employers?&#39;,
+       &#39;do you currently have a mental health disorder?&#39;,
+       &#39;have you had a mental health disorder in the past?&#39;,
+       &#39;do you have a family history of mental illness?&#39;,
+       &#39;if you have a mental health disorder, how often do you feel that it interferes with your work when being treated effectively?&#39;,
+       &#39;if you have a mental health disorder, how often do you feel that it interferes with your work when not being treated effectively (i.e., when you are experiencing symptoms)?&#39;,
+       &#39;have your observations of how another individual who discussed a mental health issue made you less likely to reveal a mental health issue yourself in your current workplace?&#39;,
+       &#39;would you be willing to bring up a physical health issue with a potential employer in an interview?&#39;,
+       &#39;would you bring up your mental health with a potential employer in an interview?&#39;,
+       &#39;have you observed or experienced an unsupportive or badly handled response to a mental health issue in your current or previous workplace?&#39;,
+       &#39;have you observed or experienced supportive or well handled response to a mental health issue in your current or previous workplace?&#39;,
+       &#39;what is your gender?&#39;, &#39;what country do you live in?&#39;,
+       &#39;what is your race?&#39;, &#39;what country do you work in?&#39;],
+      dtype=&#39;object&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<p>There are 32 columns out of 55 which are categorical in nature. Out of those, after examining the data manually, we can infer that one of them is ordinal in nature and others can be treated as nominal columns. The column - “how many employees does your company or organization have?” - which gives information regarding the size of the company can be treated as ordinal coulmn.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Encoding ordinal column for training data</span>
+<span class="n">X_train</span><span class="p">[</span><span class="s1">&#39;how many employees does your company or organization have?&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="s1">&#39;how many employees does your company or organization have?&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="s1">&#39;1-5&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> 
+                                                                                                                                              <span class="s1">&#39;6-25&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> 
+                                                                                                                                              <span class="s1">&#39;26-100&#39;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> 
+                                                                                                                                              <span class="s1">&#39;100-500&#39;</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span>
+                                                                                                                                              <span class="s1">&#39;500-1000&#39;</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span>
+                                                                                                                                              <span class="s1">&#39;More than 1000&#39;</span><span class="p">:</span><span class="mi">6</span><span class="p">})</span>
+
+<span class="c1"># Encoding ordinal column for testing data</span>
+<span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;how many employees does your company or organization have?&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;how many employees does your company or organization have?&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="s1">&#39;1-5&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> 
+                                                                                                                                              <span class="s1">&#39;6-25&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> 
+                                                                                                                                              <span class="s1">&#39;26-100&#39;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> 
+                                                                                                                                              <span class="s1">&#39;100-500&#39;</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span>
+                                                                                                                                              <span class="s1">&#39;500-1000&#39;</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span>
+                                                                                                                                              <span class="s1">&#39;More than 1000&#39;</span><span class="p">:</span><span class="mi">6</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;ipython-input-47-d59b31438a42&gt;:2: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  X_train[&#39;how many employees does your company or organization have?&#39;] = X_train[&#39;how many employees does your company or organization have?&#39;].replace({&#39;1-5&#39;:1,
+&lt;ipython-input-47-d59b31438a42&gt;:10: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  X_test[&#39;how many employees does your company or organization have?&#39;] = X_test[&#39;how many employees does your company or organization have?&#39;].replace({&#39;1-5&#39;:1,
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Encoding nominal columns for training data</span>
+<span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">cat_cols</span><span class="p">:</span>
+    <span class="n">dummy</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">column</span><span class="p">],</span> <span class="n">prefix</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">column</span><span class="p">))</span>
+    <span class="n">X_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">X_train</span><span class="p">,</span> <span class="n">dummy</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">X_train</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+<span class="c1"># Encoding nominal columns for testing data</span>
+<span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">cat_cols</span><span class="p">:</span>
+    <span class="n">dummy</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">X_test</span><span class="p">[</span><span class="n">column</span><span class="p">],</span> <span class="n">prefix</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">column</span><span class="p">))</span>
+    <span class="n">X_test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">X_test</span><span class="p">,</span> <span class="n">dummy</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">X_test</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fill value 0 for mismatched columns</span>
+<span class="n">mis_cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">X_test</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
+<span class="n">X_test</span><span class="p">[</span><span class="n">mis_cols</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="imbalance-check">
+<h3>Imbalance check<a class="headerlink" href="#imbalance-check" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1    779
+0    446
+Name: have you ever sought treatment for a mental health disorder from a mental health professional?, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>The data is imbalanced. In order to use any of the machine learning algorithm, we need to either over the minority class or downsample the majority. Considering the fact that we have less number of records in the data set, it is better to oversample. But, only training data needs to be oversample.<br />
+For oversampling, Sample Minority Oversampling Technique (SMOTE) will be used.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>are you self-employed?</th>
+      <th>is your employer primarily a tech company/organization?</th>
+      <th>is your primary role within your company related to tech/it?</th>
+      <th>have you ever discussed your mental health with your employer?</th>
+      <th>have you ever discussed your mental health with coworkers?</th>
+      <th>have you ever had a coworker discuss their or another coworker's mental health with you?</th>
+      <th>overall, how much importance does your employer place on physical health?</th>
+      <th>overall, how much importance does your employer place on mental health?</th>
+      <th>do you have previous employers?</th>
+      <th>was your employer primarily a tech company/organization?</th>
+      <th>...</th>
+      <th>what country do you work in?_Ireland</th>
+      <th>what country do you work in?_Mexico</th>
+      <th>what country do you work in?_Netherlands</th>
+      <th>what country do you work in?_Norway</th>
+      <th>what country do you work in?_Poland</th>
+      <th>what country do you work in?_Portugal</th>
+      <th>what country do you work in?_Spain</th>
+      <th>what country do you work in?_Switzerland</th>
+      <th>what country do you work in?_United Kingdom</th>
+      <th>what country do you work in?_United States of America</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>371</th>
+      <td>0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>7.0</td>
+      <td>8.0</td>
+      <td>1</td>
+      <td>1.0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>306</th>
+      <td>0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>8.0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1096</th>
+      <td>0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>8.0</td>
+      <td>8.0</td>
+      <td>1</td>
+      <td>1.0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>3.0</td>
+      <td>2.0</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>535</th>
+      <td>0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>7.0</td>
+      <td>5.0</td>
+      <td>1</td>
+      <td>1.0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1044</th>
+      <td>0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>5.0</td>
+      <td>1</td>
+      <td>1.0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1095</th>
+      <td>0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>7.0</td>
+      <td>8.0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1130</th>
+      <td>0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>860</th>
+      <td>0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>7.0</td>
+      <td>7.0</td>
+      <td>1</td>
+      <td>1.0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1126</th>
+      <td>0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+<p>980 rows × 170 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Oversample the minority class in the target variable</span>
+<span class="n">oversample</span> <span class="o">=</span> <span class="n">SMOTE</span><span class="p">()</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">oversample</span><span class="o">.</span><span class="n">fit_resample</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">y_train</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="model-training">
+<h3>Model training<a class="headerlink" href="#model-training" title="Permalink to this headline">¶</a></h3>
+<p>There are various paramters which random forest algorithm uses to train the model. Our aim is to find those paramters, also known as hyperparamters, which yeilds us the model with the best fit.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Declare parameters for grid search</span>
+
+<span class="c1"># Declare the classifer</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">class_weight</span><span class="o">=</span><span class="s2">&quot;balanced&quot;</span><span class="p">,</span> <span class="n">bootstrap</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">oob_score</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Declare the paramter grid for searching</span>
+<span class="n">param_grid</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+    <span class="n">n_estimators</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">400</span><span class="p">],</span>
+    <span class="n">criterion</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;gini&#39;</span><span class="p">,</span> <span class="s1">&#39;entropy&#39;</span><span class="p">],</span>
+    <span class="n">max_depth</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
+    <span class="n">max_features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sqrt&#39;</span><span class="p">,</span> <span class="s1">&#39;log2&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
+    <span class="n">max_samples</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Train the model</span>
+<span class="n">rf_clf</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">param_grid</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;f1&#39;</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">rf_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fitting 5 folds for each of 216 candidates, totalling 1080 fits
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GridSearchCV(cv=5,
+             estimator=RandomForestClassifier(class_weight=&#39;balanced&#39;,
+                                              oob_score=True),
+             n_jobs=7,
+             param_grid={&#39;criterion&#39;: [&#39;gini&#39;, &#39;entropy&#39;],
+                         &#39;max_depth&#39;: [10, 20, 40, None],
+                         &#39;max_features&#39;: [&#39;sqrt&#39;, &#39;log2&#39;, None],
+                         &#39;max_samples&#39;: [0.4, 0.8, None],
+                         &#39;n_estimators&#39;: [100, 200, 400]},
+             scoring=&#39;f1&#39;, verbose=2)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rf_clf</span><span class="o">.</span><span class="n">best_estimator_</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RandomForestClassifier(class_weight=&#39;balanced&#39;, max_depth=10,
+                       max_features=&#39;sqrt&#39;, max_samples=0.8, oob_score=True)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Save and load the model if required</span>
+<span class="kn">import</span> <span class="nn">joblib</span>
+<span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">rf_clf</span><span class="o">.</span><span class="n">best_estimator_</span><span class="p">,</span> <span class="s1">&#39;./../../../models/rf_clf.pkl&#39;</span><span class="p">)</span>
+<span class="n">rf_clf</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;./../../../models/rf_clf.pkl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Predict outcomes with test set</span>
+<span class="c1"># y_pred = rf_clf.best_estimator_.predict(X_test)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">rf_clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="model-evaluation">
+<h3>Model Evaluation<a class="headerlink" href="#model-evaluation" title="Permalink to this headline">¶</a></h3>
+<p>In order to compute sensitivity and specificity, we need values such as true positives, true negatives, false positives and false neagatives. These values can be easily obtained from confusion matrix.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get values from confusion metrix</span>
+<span class="n">tn</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">tp</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compute sensitivity</span>
+<span class="n">sensitivity</span> <span class="o">=</span> <span class="n">tp</span><span class="o">/</span><span class="p">(</span><span class="n">tp</span><span class="o">+</span><span class="n">fn</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sensitivity: </span><span class="si">{</span><span class="n">sensitivity</span><span class="si">}</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># Compute specificity</span>
+<span class="n">specificity</span> <span class="o">=</span> <span class="n">tn</span><span class="o">/</span><span class="p">(</span><span class="n">tn</span><span class="o">+</span><span class="n">fp</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Specificity: </span><span class="si">{</span><span class="n">specificity</span><span class="si">}</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Compute classicfication report</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sensitivity: 0.8662420382165605 
+
+Specificity: 0.8181818181818182 
+
+              precision    recall  f1-score   support
+
+           0       0.77      0.82      0.80        88
+           1       0.89      0.87      0.88       157
+
+    accuracy                           0.85       245
+   macro avg       0.83      0.84      0.84       245
+weighted avg       0.85      0.85      0.85       245
+</pre></div>
+</div>
+</div>
+</div>
+<p>From the above report, it can inferred that model is finding it difficult to predict people who need to seek help from mental health professional and that can be acceptable. It won’t harm any of us to visit a mental health professional even if we need not seek any help for any mental health issue. On the other hand the model is quite good at telling in case we that much needed help from mental health professional. An average F1 score of 0.85 is quite good considering the amount of data that we are training with. Though the model is quite better in predicting the individuals who need help than the ones who do not, the values of specificity and sensitivity are not far apart and hence the overall performance of the model is laudable.</p>
+</div>
+<div class="section" id="fairness-evaluation">
+<h3>Fairness evaluation<a class="headerlink" href="#fairness-evaluation" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fairlearn.widget</span> <span class="kn">import</span> <span class="n">FairlearnDashboard</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">FairlearnDashboard</span><span class="p">(</span><span class="n">sensitive_features</span><span class="o">=</span><span class="n">X_test</span><span class="p">,</span>
+                  <span class="n">sensitive_feature_names</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">X_test</span><span class="o">.</span><span class="n">columns</span><span class="p">),</span>
+                  <span class="n">y_true</span><span class="o">=</span><span class="n">y_test</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+                  <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_test</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./docs/models"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Pushkar Patil<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../../_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>

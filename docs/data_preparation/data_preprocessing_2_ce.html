@@ -251,8 +251,8 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#categorical-features-encoding">
-   Categorical features encoding
+  <a class="reference internal nav-link" href="#filtering-data">
+   Filtering data
   </a>
  </li>
 </ul>
@@ -453,181 +453,28 @@ AS per the graph, the features related to importance provided by the employers t
 </div>
 </div>
 </div>
-<div class="section" id="categorical-features-encoding">
-<h2>Categorical features encoding<a class="headerlink" href="#categorical-features-encoding" title="Permalink to this headline">¶</a></h2>
-<p>Before we move forward to encode categorical features, it is necessary to identify them first.</p>
+<div class="section" id="filtering-data">
+<h2>Filtering data<a class="headerlink" href="#filtering-data" title="Permalink to this headline">¶</a></h2>
+<p>After close examination of data, it can be observed that the subjects have unequal participation with regards to the country they live in, country they work in and race to which they belong to.<br />
+For current analysis, I would like to drop to subjects from countries and races with lesser participation so that machine learning model that will be used can learn with the help of the information provided by the data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
-RangeIndex: 1308 entries, 0 to 1307
-Data columns (total 55 columns):
- #   Column                                                                                                                                                                                                                          Non-Null Count  Dtype  
----  ------                                                                                                                                                                                                                          --------------  -----  
- 0   are you self-employed?                                                                                                                                                                                                          1308 non-null   int64  
- 1   how many employees does your company or organization have?                                                                                                                                                                      1308 non-null   object 
- 2   is your employer primarily a tech company/organization?                                                                                                                                                                         1308 non-null   float64
- 3   is your primary role within your company related to tech/it?                                                                                                                                                                    1308 non-null   float64
- 4   does your employer provide mental health benefits as part of healthcare coverage?                                                                                                                                               1308 non-null   object 
- 5   do you know the options for mental health care available under your employer-provided health coverage?                                                                                                                          1308 non-null   object 
- 6   has your employer ever formally discussed mental health (for example, as part of a wellness campaign or other official communication)?                                                                                          1308 non-null   object 
- 7   does your employer offer resources to learn more about mental health disorders and options for seeking help?                                                                                                                    1308 non-null   object 
- 8   is your anonymity protected if you choose to take advantage of mental health or substance abuse treatment resources provided by your employer?                                                                                  1308 non-null   object 
- 9   if a mental health issue prompted you to request a medical leave from work, how easy or difficult would it be to ask for that leave?                                                                                            1308 non-null   object 
- 10  would you feel more comfortable talking to your coworkers about your physical health or your mental health?                                                                                                                     1308 non-null   object 
- 11  would you feel comfortable discussing a mental health issue with your direct supervisor(s)?                                                                                                                                     1308 non-null   object 
- 12  have you ever discussed your mental health with your employer?                                                                                                                                                                  1308 non-null   float64
- 13  would you feel comfortable discussing a mental health issue with your coworkers?                                                                                                                                                1308 non-null   object 
- 14  have you ever discussed your mental health with coworkers?                                                                                                                                                                      1308 non-null   float64
- 15  have you ever had a coworker discuss their or another coworker&#39;s mental health with you?                                                                                                                                        1308 non-null   float64
- 16  overall, how much importance does your employer place on physical health?                                                                                                                                                       1308 non-null   float64
- 17  overall, how much importance does your employer place on mental health?                                                                                                                                                         1308 non-null   float64
- 18  do you have previous employers?                                                                                                                                                                                                 1308 non-null   int64  
- 19  was your employer primarily a tech company/organization?                                                                                                                                                                        1308 non-null   float64
- 20  have your previous employers provided mental health benefits?                                                                                                                                                                   1308 non-null   object 
- 21  were you aware of the options for mental health care provided by your previous employers?                                                                                                                                       1308 non-null   object 
- 22  did your previous employers ever formally discuss mental health (as part of a wellness campaign or other official communication)?                                                                                               1308 non-null   object 
- 23  did your previous employers provide resources to learn more about mental health disorders and how to seek help?                                                                                                                 1308 non-null   object 
- 24  was your anonymity protected if you chose to take advantage of mental health or substance abuse treatment resources with previous employers?                                                                                    1308 non-null   object 
- 25  would you have felt more comfortable talking to your previous employer about your physical health or your mental health?                                                                                                        1308 non-null   object 
- 26  would you have been willing to discuss your mental health with your direct supervisor(s)?                                                                                                                                       1308 non-null   object 
- 27  did you ever discuss your mental health with your previous employer?                                                                                                                                                            1308 non-null   float64
- 28  would you have been willing to discuss your mental health with your coworkers at previous employers?                                                                                                                            1308 non-null   object 
- 29  did you ever discuss your mental health with a previous coworker(s)?                                                                                                                                                            1308 non-null   float64
- 30  did you ever have a previous coworker discuss their or another coworker&#39;s mental health with you?                                                                                                                               1308 non-null   float64
- 31  overall, how much importance did your previous employer place on physical health?                                                                                                                                               1308 non-null   float64
- 32  overall, how much importance did your previous employer place on mental health?                                                                                                                                                 1308 non-null   float64
- 33  do you currently have a mental health disorder?                                                                                                                                                                                 1308 non-null   object 
- 34  have you had a mental health disorder in the past?                                                                                                                                                                              1308 non-null   object 
- 35  have you ever sought treatment for a mental health disorder from a mental health professional?                                                                                                                                  1308 non-null   int64  
- 36  do you have a family history of mental illness?                                                                                                                                                                                 1308 non-null   object 
- 37  if you have a mental health disorder, how often do you feel that it interferes with your work when being treated effectively?                                                                                                   1308 non-null   object 
- 38  if you have a mental health disorder, how often do you feel that it interferes with your work when not being treated effectively (i.e., when you are experiencing symptoms)?                                                    1308 non-null   object 
- 39  have your observations of how another individual who discussed a mental health issue made you less likely to reveal a mental health issue yourself in your current workplace?                                                   1308 non-null   object 
- 40  how willing would you be to share with friends and family that you have a mental illness?                                                                                                                                       1308 non-null   int64  
- 41  would you be willing to bring up a physical health issue with a potential employer in an interview?                                                                                                                             1308 non-null   object 
- 42  would you bring up your mental health with a potential employer in an interview?                                                                                                                                                1308 non-null   object 
- 43  are you openly identified at work as a person with a mental health issue?                                                                                                                                                       1308 non-null   float64
- 44  if they knew you suffered from a mental health disorder, how do you think that team members/co-workers would react?                                                                                                             1308 non-null   float64
- 45  have you observed or experienced an unsupportive or badly handled response to a mental health issue in your current or previous workplace?                                                                                      1308 non-null   object 
- 46  have you observed or experienced supportive or well handled response to a mental health issue in your current or previous workplace?                                                                                            1308 non-null   object 
- 47  overall, how well do you think the tech industry supports employees with mental health issues?                                                                                                                                  1308 non-null   float64
- 48  would you be willing to talk to one of us more extensively about your experiences with mental health issues in the tech industry? (note that all interview responses would be used anonymously and only with your permission.)  1308 non-null   float64
- 49  what is your age?                                                                                                                                                                                                               1308 non-null   float64
- 50  what is your gender?                                                                                                                                                                                                            1308 non-null   object 
- 51  what country do you live in?                                                                                                                                                                                                    1308 non-null   object 
- 52  what is your race?                                                                                                                                                                                                              1308 non-null   object 
- 53  what country do you work in?                                                                                                                                                                                                    1308 non-null   object 
- 54  year                                                                                                                                                                                                                            1308 non-null   int64  
-dtypes: float64(18), int64(5), object(32)
-memory usage: 562.2+ KB
-</pre></div>
-</div>
-</div>
-</div>
-<p>Looking at the information of dataframe, there are quite a lot of fetuares which has data type as “object”. It is not necessary that all the features with data type as “object” be categorical features. There may be certain columns which might binary values which can be represented by booleans. It is better to check column one by one.<br />
-But for now, I would like to go with the assumption that all the columns with data type as “object” are categorical columns.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cat_cols</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;object&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span>
-<span class="n">cat_cols</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;how many employees does your company or organization have?&#39;,
-       &#39;does your employer provide mental health benefits as part of healthcare coverage?&#39;,
-       &#39;do you know the options for mental health care available under your employer-provided health coverage?&#39;,
-       &#39;has your employer ever formally discussed mental health (for example, as part of a wellness campaign or other official communication)?&#39;,
-       &#39;does your employer offer resources to learn more about mental health disorders and options for seeking help?&#39;,
-       &#39;is your anonymity protected if you choose to take advantage of mental health or substance abuse treatment resources provided by your employer?&#39;,
-       &#39;if a mental health issue prompted you to request a medical leave from work, how easy or difficult would it be to ask for that leave?&#39;,
-       &#39;would you feel more comfortable talking to your coworkers about your physical health or your mental health?&#39;,
-       &#39;would you feel comfortable discussing a mental health issue with your direct supervisor(s)?&#39;,
-       &#39;would you feel comfortable discussing a mental health issue with your coworkers?&#39;,
-       &#39;have your previous employers provided mental health benefits?&#39;,
-       &#39;were you aware of the options for mental health care provided by your previous employers?&#39;,
-       &#39;did your previous employers ever formally discuss mental health (as part of a wellness campaign or other official communication)?&#39;,
-       &#39;did your previous employers provide resources to learn more about mental health disorders and how to seek help?&#39;,
-       &#39;was your anonymity protected if you chose to take advantage of mental health or substance abuse treatment resources with previous employers?&#39;,
-       &#39;would you have felt more comfortable talking to your previous employer about your physical health or your mental health?&#39;,
-       &#39;would you have been willing to discuss your mental health with your direct supervisor(s)?&#39;,
-       &#39;would you have been willing to discuss your mental health with your coworkers at previous employers?&#39;,
-       &#39;do you currently have a mental health disorder?&#39;,
-       &#39;have you had a mental health disorder in the past?&#39;,
-       &#39;do you have a family history of mental illness?&#39;,
-       &#39;if you have a mental health disorder, how often do you feel that it interferes with your work when being treated effectively?&#39;,
-       &#39;if you have a mental health disorder, how often do you feel that it interferes with your work when not being treated effectively (i.e., when you are experiencing symptoms)?&#39;,
-       &#39;have your observations of how another individual who discussed a mental health issue made you less likely to reveal a mental health issue yourself in your current workplace?&#39;,
-       &#39;would you be willing to bring up a physical health issue with a potential employer in an interview?&#39;,
-       &#39;would you bring up your mental health with a potential employer in an interview?&#39;,
-       &#39;have you observed or experienced an unsupportive or badly handled response to a mental health issue in your current or previous workplace?&#39;,
-       &#39;have you observed or experienced supportive or well handled response to a mental health issue in your current or previous workplace?&#39;,
-       &#39;what is your gender?&#39;, &#39;what country do you live in?&#39;,
-       &#39;what is your race?&#39;, &#39;what country do you work in?&#39;],
-      dtype=&#39;object&#39;)
-</pre></div>
-</div>
-</div>
-</div>
-<p>There are 32 columns out of 55 which are categorical in nature. Out of those, after examining the data manually, we can infer that one of them is ordinal in nature and others can be treated as nominal columns. The column - “how many employees does your company or organization have?” - which gives information regarding the size of the company can be treated as ordinal coulmn.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Encoding ordinal column</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;how many employees does your company or organization have?&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;how many employees does your company or organization have?&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="s1">&#39;1-5&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> 
-                                                                                                                                              <span class="s1">&#39;6-25&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> 
-                                                                                                                                              <span class="s1">&#39;26-100&#39;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> 
-                                                                                                                                              <span class="s1">&#39;100-500&#39;</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span>
-                                                                                                                                              <span class="s1">&#39;500-1000&#39;</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span>
-                                                                                                                                              <span class="s1">&#39;More than 1000&#39;</span><span class="p">:</span><span class="mi">6</span><span class="p">})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Filter data with regards to country people work in </span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;what country do you work in?&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># Filter data with regards to country people live in </span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;what country do you live in?&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># Filter data with regards to race</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;what is your race?&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Encoding nominal columns</span>
-<span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">cat_cols</span><span class="p">:</span>
-    <span class="n">dummy</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">])</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="n">dummy</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([                                                                  &#39;are you self-employed?&#39;,
-                                        &#39;is your employer primarily a tech company/organization?&#39;,
-                                   &#39;is your primary role within your company related to tech/it?&#39;,
-                                 &#39;have you ever discussed your mental health with your employer?&#39;,
-                                     &#39;have you ever discussed your mental health with coworkers?&#39;,
-       &#39;have you ever had a coworker discuss their or another coworker&#39;s mental health with you?&#39;,
-                      &#39;overall, how much importance does your employer place on physical health?&#39;,
-                        &#39;overall, how much importance does your employer place on mental health?&#39;,
-                                                                &#39;do you have previous employers?&#39;,
-                                       &#39;was your employer primarily a tech company/organization?&#39;,
-       ...
-                                                                                   &#39;South Africa&#39;,
-                                                                                          &#39;Spain&#39;,
-                                                                                      &#39;Swaziland&#39;,
-                                                                                         &#39;Sweden&#39;,
-                                                                                    &#39;Switzerland&#39;,
-                                                                                         &#39;Turkey&#39;,
-                                                                                        &#39;Ukraine&#39;,
-                                                                                 &#39;United Kingdom&#39;,
-                                                                       &#39;United States of America&#39;,
-                                                                                        &#39;Uruguay&#39;],
-      dtype=&#39;object&#39;, length=249)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write file to csv</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./../../../datasets/preprocessed_ce.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
