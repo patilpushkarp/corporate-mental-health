@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
     <title>Data Preprocessing - 2 - Company Employed &#8212; Corporate Mental Health</title>
     
   <link rel="stylesheet" href="../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -54,6 +55,7 @@
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Data Modelling" href="../models/models.html" />
     <link rel="prev" title="Data Selection and Segregation" href="select_n_combine_columns.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -91,7 +93,7 @@
   </a>
  </li>
 </ul>
-<p class="caption collapsible-parent">
+<p>
  <span class="caption-text">
   Data Understanding
  </span>
@@ -103,7 +105,7 @@
   </a>
  </li>
 </ul>
-<p class="caption collapsible-parent">
+<p>
  <span class="caption-text">
   Data Preparation
  </span>
@@ -122,6 +124,23 @@
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    Data Preprocessing - 2 - Company Employed
+  </a>
+ </li>
+</ul>
+<p>
+ <span class="caption-text">
+  Data Modelling
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../models/models.html">
+   Data Modelling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../models/rf.html">
+   Random Forest Classifier
   </a>
  </li>
 </ul>
@@ -267,7 +286,7 @@
         
               <div>
                 
-  <div class="section" id="data-preprocessing-2-company-employed">
+  <section id="data-preprocessing-2-company-employed">
 <h1>Data Preprocessing - 2 - Company Employed<a class="headerlink" href="#data-preprocessing-2-company-employed" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -284,7 +303,7 @@
 </div>
 </div>
 </div>
-<div class="section" id="drop-irrelevant-and-unuseful-columns">
+<section id="drop-irrelevant-and-unuseful-columns">
 <h2>Drop irrelevant and unuseful columns<a class="headerlink" href="#drop-irrelevant-and-unuseful-columns" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -323,10 +342,10 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="missing-values-analysis">
+</section>
+<section id="missing-values-analysis">
 <h2>Missing values analysis<a class="headerlink" href="#missing-values-analysis" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="missing-values-identification">
+<section id="missing-values-identification">
 <h3>Missing values identification<a class="headerlink" href="#missing-values-identification" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -392,8 +411,8 @@ AS per the graph, the features related to importance provided by the employers t
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="missing-values-imputation">
+</section>
+<section id="missing-values-imputation">
 <h3>Missing values imputation<a class="headerlink" href="#missing-values-imputation" title="Permalink to this headline">¶</a></h3>
 <p>For imputing missing values certain <strong>assumptions</strong> need to be made. Following are the assumptions -</p>
 <ol class="simple">
@@ -451,9 +470,9 @@ AS per the graph, the features related to importance provided by the employers t
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="filtering-data">
+</section>
+</section>
+<section id="filtering-data">
 <h2>Filtering data<a class="headerlink" href="#filtering-data" title="Permalink to this headline">¶</a></h2>
 <p>After close examination of data, it can be observed that the subjects have unequal participation with regards to the country they live in, country they work in and race to which they belong to.<br />
 For current analysis, I would like to drop to subjects from countries and races with lesser participation so that machine learning model that will be used can learn with the help of the information provided by the data.</p>
@@ -479,8 +498,8 @@ For current analysis, I would like to drop to subjects from countries and races 
 </div>
 </div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -508,6 +527,7 @@ For current analysis, I would like to drop to subjects from countries and races 
         <div class='prev-next-bottom'>
             
     <a class='left-prev' id="prev-link" href="select_n_combine_columns.html" title="previous page">Data Selection and Segregation</a>
+    <a class='right-next' id="next-link" href="../models/models.html" title="next page">Data Modelling</a>
 
         </div>
         
