@@ -12,4 +12,9 @@
     - file: docs/data_preparation/data_cleaning.ipynb
     - file: docs/data_preparation/select_n_combine_columns.ipynb
     - file: docs/data_preparation/data_preprocessing_2_ce.ipynb
+
+- part: Data Modelling
+  chapters:
+    - file: docs/models/models.md
+    - file: docs/models/rf.ipynb
     
